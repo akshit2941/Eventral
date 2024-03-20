@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
-import "../pages_css/home.css"; // Assuming you have CSS styles in App.css
-import Navbar from "../components/Navbar";
+import "../pages_css/home_web.css"; // Assuming you have CSS styles in App.css
+import Navbar from "../components/Navbar/Navbar";
 
 import img1 from "../images/img-1.jpg";
 import img2 from "../images/img-2.jpg";
@@ -49,7 +49,7 @@ function Home_web() {
                 <div className="ticket-sale">
                     <h1>Ticket Sales</h1>
                     <div className="ticket-img">
-                        <img src={chart} alt="Image 1" />
+                        <img src={chart} alt="" />
                     </div>
                 </div>
 
@@ -58,7 +58,7 @@ function Home_web() {
                     <div className="event-list-parts">
                         <div className="event-name">
                             <div className="event-img">
-                                <img src={img1} alt="Image 1" />
+                                <img src={img1} alt="" />
                             </div>
                             <div className="event-details">
                                 <h3>Spring Music Festival</h3>
@@ -68,7 +68,7 @@ function Home_web() {
                         </div>
                         <div className="event-name">
                             <div className="event-img">
-                                <img src={img2} alt="Image 1" />
+                                <img src={img2} alt="" />
                             </div>
                             <div className="event-details">
                                 <h3>Summer Music Festival</h3>
@@ -78,7 +78,7 @@ function Home_web() {
                         </div>
                         <div className="event-name">
                             <div className="event-img">
-                                <img src={img3} alt="Image 1" />
+                                <img src={img3} alt="" />
                             </div>
                             <div className="event-details">
                                 <h3>Fall Music Festival</h3>

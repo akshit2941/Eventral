@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Helvetica, sans-serif;
+  color: #333;
+}
+
+body {
+  margin: 0;
+  font-family: Helvetica;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+body {
+  height: 100vh;
+
+}
+
+.body-main {
+  padding-left: 350px;
+  padding-right: 350px;
+}
+
+.dashboard {
+  position: relative;
+  padding: 50px;
+  padding-left: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard h2 {
+  font-family: Helvetica;
+  font-weight: 900;
+  font-size: 45px;
+  color: black;
+}
+
+.dash-btn {
+  font-size: 20px;
+  font-family: Helvetica;
+  width: 110px;
+  height: 43px;
+  font-weight: bold;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  background-color: rgb(245, 245, 245);
+
+}
+
+.dash-btn:hover {
+  transition: .5s;
+  background-color: #333;
+  color: #fff;
+}
+
+.analytics-boxes {
+  display: flex;
+  justify-content: space-between;
+  /* padding: 20px; */
+  margin-bottom: 40px;
+}
+
+.ana-box {
+  height: fit-content;
+  width: 275px;
+  border-radius: 14px;
+  border: 1px solid #d4d4d4;
+  color: #fff;
+  padding: 25px;
+}
+
+.ana-box h2 {
+  font-size: 20px;
+  padding: 10px;
+  margin-left: 0;
+  padding-left: 0;
+  font-weight: 600;
+}
+
+.ana-box h1 {
+  font-size: 35px;
+  font-weight: bolder;
+  color: black;
+}
+
+.ticket-sale {
+  height: fit-content;
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid #d4d4d4;
+  color: #fff;
+  padding: 25px;
+  margin-bottom: 40px;
+}
+
+.ticket-sale h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.ticket-img {
+  display: flex;
+  justify-content: center;
+}
+
+.ticket-img img {
+  justify-content: center;
+  width: 80%;
+}
+
+/* event details  */
+
+.event-list {
+  height: 50vh;
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid #d4d4d4;
+  color: #fff;
+  padding: 25px;
+  margin-bottom: 20px;
+
+}
+
+.event-list-parts {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-list h1 {
+  margin-bottom: 20px;
+}
+
+.event-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.event-img img {
+  width: 100%;
+  /* height: 100%; */
+  object-fit: fill;
+}
+
+.event-name {
+  display: flex;
+}
+
+.event-name h3,
+p {
+  margin-left: 30px;
+  padding: 3px;
+}

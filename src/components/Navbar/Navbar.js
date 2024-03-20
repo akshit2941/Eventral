@@ -1,9 +1,9 @@
 import React from 'react';
-import '../App.css'; // Assuming you have CSS styles in App.css
+import './Navbar.css';
 import { Link } from 'react-router-dom'
 
 
-import avatar from '../images/avatar.png';
+import avatar from '../../images/avatar.png';
 
 function Navbar() {
     return (

@@ -5,19 +5,19 @@ import { doSignOut } from '../firebase/auth'
 
 const Header = () => {
     const { userLoggedIn } = useAuth()
-    return (
-        <>
-            {userLoggedIn &&
-                <button onClick={doSignOut} className='text-sm text-blue-600 underline'>Logout</button>
-            }
-            {!userLoggedIn &&
-                <>
-                    <Link className='text-sm text-blue-600 underline' to={'/login'}>Login</Link>
-                    <Link className='text-sm text-blue-600 underline' to={'/register'}>Register New Account</Link>
-                </>
-            }
-        </>
-    )
+    // return (
+    //     <>
+    //         {userLoggedIn &&
+    //             <button onClick={doSignOut} className='text-sm text-blue-600 underline'>Logout</button>
+    //         }
+    //         {!userLoggedIn &&
+    //             <>
+    //                 <Link className='text-sm text-blue-600 underline' to={'/login'}>Login</Link>
+    //                 <Link className='text-sm text-blue-600 underline' to={'/register'}>Register New Account</Link>
+    //             </>
+    //         }
+    //     </>
+    // )
 }
 
 export default Header
