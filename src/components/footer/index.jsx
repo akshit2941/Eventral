@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/authContext";
 import { doSignOut } from "../firebase/auth";
 
-const Header = () => {
+const Footer = () => {
   const { userLoggedIn } = useAuth();
   const location = useLocation();
 
@@ -40,4 +40,4 @@ const Header = () => {
   ) : null;
 };
 
-export default Header;
+export default Footer;

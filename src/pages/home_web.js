@@ -3,10 +3,12 @@ import { useEffect } from "react";
 import "../pages_css/home_web.css"; // Assuming you have CSS styles in App.css
 import Navbar from "../components/Navbar/Navbar";
 
+
 import img1 from "../images/img-1.jpg";
 import img2 from "../images/img-2.jpg";
 import img3 from "../images/img-3.jpg";
 import chart from "../images/chart.png";
+import Footer from "../components/footer";
 
 function Home_web() {
     useEffect(() => {
@@ -86,10 +88,12 @@ function Home_web() {
                             </div>
                             <p>$2.3M</p>
                         </div>
-                        <div className="event-rev">
-                            {/* Empty div, you can add content here */}
-                        </div>
+                        
                     </div>
+                </div>
+
+                <div>
+                    <Footer/>
                 </div>
             </div>
         </div>

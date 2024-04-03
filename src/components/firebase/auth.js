@@ -1,4 +1,5 @@
-import { auth } from "./firebase";
+import { auth, firestore } from "./firebase";
+import { doc, setDoc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -9,8 +10,24 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 
-export const doCreateUserWithEmailAndPassword = async (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+export const doCreateUserWithEmailAndPassword = async (email, password, displayName) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // Add user to Firestore
+    const userRef = doc(firestore, "artists", user.uid);
+    await setDoc(userRef, {
+      displayName: displayName,
+      email: user.email,
+      // Add any additional user data you want to store in Firestore
+    });
+
+    return user;
+  } catch (error) {
+    console.error("Error creating user:", error.message);
+    throw error;
+  }
 };
 
 export const doSignInWithEmailAndPassword = (email, password) => {
@@ -18,9 +35,25 @@ export const doSignInWithEmailAndPassword = (email, password) => {
 };
 
 export const doSignInWithGoogle = async () => {
-  const provider = new GoogleAuthProvider();
-  const result = await signInWithPopup(auth, provider);
-  const user = result.user;
+  try {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    // Add user to Firestore
+    const userRef = doc(firestore, "artists", user.uid);
+    await setDoc(userRef, {
+      displayName: user.displayName,
+      email: user.email,
+      photoUrl: user.photoURL,
+      // Add any additional user data you want to store in Firestore
+    });
+
+    return user;
+  } catch (error) {
+    console.error("Error signing in with Google:", error.message);
+    throw error;
+  }
 
   // add user to firestore
 };
