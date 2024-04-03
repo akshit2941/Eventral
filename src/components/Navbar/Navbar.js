@@ -1,23 +1,23 @@
 import React from 'react';
 import './Navbar.css';
-import { Link } from 'react-router-dom'
-
+import { Link} from "react-router-dom";
 
 import avatar from '../../images/avatar.png';
+import { doSignOut } from '../firebase/auth';
 
 function Navbar() {
     return (
         <header className="header">
             <div className="logo">Eventral</div>
             <nav className="navbar">
-                <Link to="/" className='navbar-elements'>Home</Link>
+                <Link to="/home_web" className='navbar-elements'>Home</Link>
                 <Link to="/dashboard" className='navbar-elements'>Dashboard</Link>
                 <Link to="/event" className='navbar-elements'>Events</Link>
                 <Link to="/explore" className='navbar-elements'>Explore</Link>
                 <Link to="/insight" className='navbar-elements'>Insights</Link>
                 <div className='nav-btn'>
-                    <button className='btn-new'>
-                        New
+                    <button className='btn-new' onClick={doSignOut}>
+                        Logout
                     </button>
                 </div>
                 <button className='user-btn'>
