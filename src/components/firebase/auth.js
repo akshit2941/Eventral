@@ -26,7 +26,13 @@ export const doSignInWithGoogle = async () => {
 };
 
 export const doSignOut = () => {
-  return auth.signOut();
+  auth.signOut()
+    .then(() => {
+      window.location.href = '/'; // Redirect to home page after logout
+    })
+    .catch(error => {
+      console.error('Error signing out:', error);
+    });
 };
 
 export const doPasswordReset = (email) => {

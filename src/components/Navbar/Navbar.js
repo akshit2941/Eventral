@@ -14,7 +14,7 @@ function Navbar() {
                 <Link to="/dashboard" className='navbar-elements'>Dashboard</Link>
                 <Link to="/event" className='navbar-elements'>Events</Link>
                 <Link to="/explore" className='navbar-elements'>Explore</Link>
-                <Link to="/insights" className='navbar-elements'>Insights</Link>
+                <Link to="/insight" className='navbar-elements'>Insights</Link>
                 <div className='nav-btn'>
                     <button className='btn-new'>
                         New
