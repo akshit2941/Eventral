@@ -136,5 +136,13 @@
     cursor: pointer;
     margin-left: 50px;
   }
+
+
+  .separator {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
   
   

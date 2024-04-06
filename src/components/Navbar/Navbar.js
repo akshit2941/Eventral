@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react'; // Import useState from React
 import './Navbar.css';
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import Modal from '../modal/modal';
 
 import avatar from '../../images/avatar.png';
 import { doSignOut } from '../firebase/auth';
 
 function Navbar() {
+    const [modalOpen, setModalOpen] = useState(false);
+
     return (
         <header className="header">
+
             <div className="logo">Eventral</div>
             <nav className="navbar">
                 <Link to="/home_web" className='navbar-elements'>Home</Link>
@@ -20,13 +24,19 @@ function Navbar() {
                         Logout
                     </button>
                 </div>
-                <button className='user-btn'>
+                <button className='user-btn openModalBtn'
+                    onClick={() => {
+                        setModalOpen(true);
+                    }}>
                     <img src={avatar} alt="profile_pic" className='user-pic' />
                 </button>
+                {modalOpen && <Modal setOpenModal={setModalOpen} />}
+
             </nav>
 
         </header>
+
     )
 }
 
-export default Navbar
+export default Navbar;

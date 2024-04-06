@@ -43,7 +43,7 @@ function Insight() {
 
                 {/* <hr> */}
 
-                <div classNameName="insight-search">
+                <div className="insight-search">
                     <input type="text" id="searchInput" placeholder="Find a post..." />
                     <button className="search-Button">Search</button>
                 </div>
