@@ -91,6 +91,7 @@
 
 #crimson:hover {
   background-color: rgb(252, 65, 102);
+  text-decoration: none;
 }
 
 .border-box h5 {
@@ -199,14 +200,20 @@
   border-radius: 8px;
   font-size: 20px;
   cursor: pointer;
+  text-decoration: none;
 }
 
-.profile-button-main:hover {
+#grey:hover {
   background-color: rgb(180, 180, 180);
 }
 
 .grey {
   background-color: rgb(196, 185, 185);
+}
+
+.profile-button-main:hover{
+  text-decoration: none;
+  border: none;
 }
 
 .close {

@@ -28,7 +28,7 @@ function Navbar() {
                     onClick={() => {
                         setModalOpen(true);
                     }}>
-                    <img src={avatar} alt="profile_pic" className='user-pic' />
+                    <img src={avatar} alt="profile_pic" className='user-pic'/>
                 </button>
                 {modalOpen && <Modal setOpenModal={setModalOpen} />}
 

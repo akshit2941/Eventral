@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import "./modal.css";
+import { Link } from "react-router-dom";
 import avatar from '../../images/avatar.png';
 
 function Modal({ setOpenModal }) {
@@ -67,8 +68,12 @@ function Modal({ setOpenModal }) {
 
         <div className="profile-navigator">
           <div className="profile-buttons">
-            <button className="profile-button-main">New Post</button>
-            <button className="profile-button-main" id="crimson">Analytics</button>
+            <Link to="/event">
+            <button className="profile-button-main" id="grey">New Post</button>
+            </Link>
+            <Link to="/insight">
+              <button className="profile-button-main" id="crimson">Analytics</button>
+            </Link>
           </div>
         </div>
 
