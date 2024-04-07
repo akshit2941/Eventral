@@ -1,13 +1,24 @@
-import React, { useState } from 'react'; // Import useState from React
+import React, { useState, useEffect } from 'react'; // Import useState from React
 import './Navbar.css';
 import { Link } from "react-router-dom";
 import Modal from '../modal/modal';
 
-import avatar from '../../images/avatar.png';
-import { doSignOut } from '../firebase/auth';
+import defaultAvatar from '../../images/avatar.png';
+import { doSignOut, getUserAvatar } from '../firebase/auth';
 
 function Navbar() {
     const [modalOpen, setModalOpen] = useState(false);
+    const [avatarUrl, setAvatarUrl] = useState(null);
+
+    useEffect(() => {
+        // Fetch user avatar from Firestore when component mounts
+        const fetchAvatar = async () => {
+            const url = await getUserAvatar();
+            // If avatar URL is not fetched successfully or is null, set default avatar URL
+            setAvatarUrl(url || defaultAvatar);
+        };
+        fetchAvatar();
+    }, []);
 
     return (
         <header className="header">
@@ -28,7 +39,7 @@ function Navbar() {
                     onClick={() => {
                         setModalOpen(true);
                     }}>
-                    <img src={avatar} alt="profile_pic" className='user-pic'/>
+                    <img src={avatarUrl} alt="profile_pic" className='user-pic' />
                 </button>
                 {modalOpen && <Modal setOpenModal={setModalOpen} />}
 

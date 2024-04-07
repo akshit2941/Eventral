@@ -1,7 +1,8 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../pages_css/home_web.css"; // Assuming you have CSS styles in App.css
 import Navbar from "../components/Navbar/Navbar";
+import CreatePost from '../components/new_post/new';
 
 
 import img1 from "../images/img-1.jpg";
@@ -10,6 +11,8 @@ import img3 from "../images/img-3.jpg";
 import chart from "../images/chart.png";
 
 function Home_web() {
+    const [modalOpen, setModalOpen] = useState(false);
+    
     useEffect(() => {
         document.title = "Eventral";
     }, []);
@@ -24,7 +27,10 @@ function Home_web() {
                 <div className="dashboard">
                     <h2>Home</h2>
                     <div className="dash-left">
-                        <button className="dash-btn">New</button>
+                        <button className="dash-btn openModalBtn" onClick={() => {
+                            setModalOpen(true);
+                        }}>New</button>
+                        {modalOpen && <CreatePost setOpenModal={setModalOpen} />}
                     </div>
                 </div>
 
@@ -87,7 +93,7 @@ function Home_web() {
                             </div>
                             <p>$2.3M</p>
                         </div>
-                        
+
                     </div>
                 </div>
 
