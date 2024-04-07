@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes
 import './new.css';
-import 'firebase/storage';
 import { getFirestore, addDoc, collection } from "firebase/firestore";
-import { storage } from '../firebase/firebase';
-import { v4 } from "uuid";
-import {
-    ref,
-    uploadBytes,
-    getDownloadURL,
-    listAll,
-} from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+
 
 function NewPost({ setOpenModal }) {
     const [eventTitle, setEventTitle] = useState('');
@@ -18,49 +12,38 @@ function NewPost({ setOpenModal }) {
     const [eventCategory, setEventCategory] = useState('');
     const [eventTags, setEventTags] = useState('');
     const [mediaFile, setMediaFile] = useState(null);
-    const [imageUrls, setImageUrls] = useState([]);
 
     const db = getFirestore();
-    const imagesListRef = ref(storage, "images/");
+    const storage = getStorage();
+
+    const handleFileChange = (e) => {
+        if (e.target.files[0]) {
+            setMediaFile(e.target.files[0]);
+        }
+    };
 
     const saveDataToFirestore = async () => {
-        await addDoc(collection(db, "newEvent"), {
-            eventTitle,
-            eventDescription,
-            eventCategory,
-            eventTags,
-            imageUrl: imageUrls
-        });
+        try {
+            if (mediaFile == null) throw new Error("Please select an image");
 
-        console.log("Document written to Database");
-    };
+            const imageRef = ref(storage, `images/${mediaFile.name + uuidv4()}`);
+            const snapshot = await uploadBytes(imageRef, mediaFile);
+            const imageUrl = await getDownloadURL(snapshot.ref);
 
-    const handlePublish = async () => {
-        saveDataToFirestore();
-        uploadFile();
-        setOpenModal(false);
-    };
-
-    const uploadFile = async () => {
-        if (mediaFile == null) return;
-        const imageRef = ref(storage, `images/${mediaFile.name + v4()}`);
-        uploadBytes(imageRef, mediaFile).then((snapshot) => {
-            getDownloadURL(snapshot.ref).then((url) => {
-                setImageUrls((prev) => [...prev, url]);
+            await addDoc(collection(db, "newEvent"), {
+                eventTitle,
+                eventDescription,
+                eventCategory,
+                eventTags,
+                imageUrl
             });
-        });
+
+            console.log("Document written to Database");
+            setOpenModal(false);
+        } catch (error) {
+            console.error("Error saving data to Firestore:", error.message);
+        }
     };
-
-    useEffect(() => {
-        listAll(imagesListRef).then((response) => {
-            response.items.forEach((item) => {
-                getDownloadURL(item).then((url) => {
-                    setImageUrls((prev) => [...prev, url]);
-                });
-            });
-        });
-    }, []);
-
 
     return (
         <div className="newPostmodalBackground">
@@ -113,6 +96,7 @@ function NewPost({ setOpenModal }) {
                             className="media-select"
                             onChange={(event) => {
                                 setMediaFile(event.target.files[0]);
+                                handleFileChange;
                             }}
                         />
 
@@ -127,8 +111,8 @@ function NewPost({ setOpenModal }) {
 
                         <div className="submit-container">
                             <div className="button-container">
-                                <button className="submit-btn publish" type="submit" onClick={handlePublish}>Publish Event</button>
-                                <button className="submit-btn draft">Save Draft</button>
+                                <button className="submit-btn publish" type="submit" onClick={saveDataToFirestore}>Publish Event</button>
+                                <button className="submit-btn draft" type='submit'>Upload Image</button>
                             </div>
                         </div>
                     </div>
