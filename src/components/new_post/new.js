@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes
 import './new.css';
-import { getFirestore, addDoc, collection } from "firebase/firestore";
+import { getFirestore,doc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
@@ -21,18 +21,18 @@ function NewPost({ setOpenModal }) {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-          if (user) {
-            // User is signed in.
-            setUserId(user.uid);
-          } else {
-            // No user is signed in.
-            setUserId(null);
-          }
+            if (user) {
+                // User is signed in.
+                setUserId(user.uid);
+            } else {
+                // No user is signed in.
+                setUserId(null);
+            }
         });
-    
+
         // Clean up subscription to avoid memory leaks
         return () => unsubscribe();
-      }, []);
+    }, []);
 
     const handleFileChange = (e) => {
         if (e.target.files[0]) {
@@ -44,17 +44,21 @@ function NewPost({ setOpenModal }) {
         try {
             if (mediaFile == null) throw new Error("Please select an image");
 
-            const imageRef = ref(storage, `images/${mediaFile.name + uuidv4()}`);
+            console.log("User ID:", userId); // Add this line to check userId
+
+            const imageRef = ref(storage, `images/${mediaFile.name}-${uuidv4()}`);
             const snapshot = await uploadBytes(imageRef, mediaFile);
             const imageUrl = await getDownloadURL(snapshot.ref);
 
-            await addDoc(collection(db, `/artists/${userId}/`), {
+            const docRef = doc(db, "artists", userId);
+
+            await setDoc(docRef, {
                 eventTitle,
                 eventDescription,
                 eventCategory,
                 eventTags,
                 imageUrl
-            });
+            }, { merge: true });
 
             console.log("Document written to Database");
             setOpenModal(false);
