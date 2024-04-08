@@ -22,15 +22,12 @@ function NewPost({ setOpenModal }) {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
-                // User is signed in.
                 setUserId(user.uid);
             } else {
-                // No user is signed in.
                 setUserId(null);
             }
         });
 
-        // Clean up subscription to avoid memory leaks
         return () => unsubscribe();
     }, []);
 
@@ -44,7 +41,7 @@ function NewPost({ setOpenModal }) {
         try {
             if (mediaFile == null) throw new Error("Please select an image");
 
-            console.log("User ID:", userId); // Add this line to check userId
+            console.log("User ID:", userId);
 
             const imageRef = ref(storage, `images/${mediaFile.name}-${uuidv4()}`);
             const snapshot = await uploadBytes(imageRef, mediaFile);
