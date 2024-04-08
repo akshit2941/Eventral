@@ -1,7 +1,8 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes
 import './new.css';
 import { getFirestore, addDoc, collection } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
@@ -12,9 +13,26 @@ function NewPost({ setOpenModal }) {
     const [eventCategory, setEventCategory] = useState('');
     const [eventTags, setEventTags] = useState('');
     const [mediaFile, setMediaFile] = useState(null);
+    const [userId, setUserId] = useState(null);
 
     const db = getFirestore();
     const storage = getStorage();
+    const auth = getAuth();
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
+          if (user) {
+            // User is signed in.
+            setUserId(user.uid);
+          } else {
+            // No user is signed in.
+            setUserId(null);
+          }
+        });
+    
+        // Clean up subscription to avoid memory leaks
+        return () => unsubscribe();
+      }, []);
 
     const handleFileChange = (e) => {
         if (e.target.files[0]) {
@@ -30,7 +48,7 @@ function NewPost({ setOpenModal }) {
             const snapshot = await uploadBytes(imageRef, mediaFile);
             const imageUrl = await getDownloadURL(snapshot.ref);
 
-            await addDoc(collection(db, "newEvent"), {
+            await addDoc(collection(db, `/artists/${userId}/`), {
                 eventTitle,
                 eventDescription,
                 eventCategory,
