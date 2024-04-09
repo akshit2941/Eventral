@@ -2,33 +2,41 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import "./modal.css";
 import { Link } from "react-router-dom";
-import avatar from '../../images/avatar.png';
+// import avatar from '../../images/avatar.png';
 
-import { auth, firestore } from '../firebase/firebase';
+import { auth } from '../firebase/firebase';
 
 function Modal({ setOpenModal }) {
-  const [user, setUser] = useState(null);
+  // const [modalOpen, setModalOpen] = useState(false);
+  // const [user, setUser] = useState(null);
+  const [avatarUrl, setAvatarUrl] = useState(null);
+  const [displayName, setDisplayName] = useState('');
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = firestore.collection('artists').doc(userAuth.uid);
-        const snapshot = await userRef.get();
+    // Check if user is already signed in
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const avatarUrl = user.photoURL;
+        const displayName = user.displayName;
+        const email = user.email;
 
-        if (snapshot.exists) {
-          setUser(snapshot.data());
-        } else {
-          console.log('No such document!');
-          console.log(user.displayName);
-        }
+        console.log(avatarUrl);
+        console.log(displayName);
+        console.log(email);
+
+        setAvatarUrl(avatarUrl);
+        setDisplayName(displayName);
+        setEmail(email);
       } else {
-        setUser(null);
+        console.log('No user logged in');
       }
     });
-    return () => unsubscribe();
+
+    return () => {
+      unsubscribe(); // Cleanup function to unsubscribe from the auth state listener
+    };
   }, []);
-
-
 
   return (
     <div className="modalBackground">
@@ -37,13 +45,13 @@ function Modal({ setOpenModal }) {
         </div>
 
         <div className="profile-img">
-          <img src={avatar} alt="profile_pic" />
+          <img src={avatarUrl || 'default_avatar.jpg'} alt="profile_pic" />
         </div>
 
         <div className="profile-details">
           <div>
-            <h3 className="head">{user ? user.displayName : 'Guest'}</h3>
-            <p className="content">{user ? user.email : 'guest@example.com'}</p>
+            <h3 className="head">{displayName || 'Guest'}</h3>
+            <p className="content">{email || 'guest@example.com'}</p>
           </div>
         </div>
 
