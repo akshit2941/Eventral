@@ -137,18 +137,19 @@
   margin-top: 30px;
 }
 
-.stat-content {
+.stat-content-modal {
   margin: 0 60px;
   justify-content: center;
   text-align: center;
 }
 
-.stat-head {
-  font-size: 25px;
+.stat-head-modal {
+  font-size: 30px;
 }
 
-.stat-para {
-  font-size: 20px;
+.stat-para-modal {
+  font-size: 22px;
+  margin-left: 0;
 }
 
 .profile-about {

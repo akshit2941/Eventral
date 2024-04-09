@@ -1,0 +1,138 @@
+Artist: Max Rockwell
+Genre: Indie Folk
+
+Followers Growth (Last 12 Months):
+- April 2023: 20,000
+- May 2023: 21,500
+- June 2023: 22,800
+- July 2023: 24,000
+- August 2023: 25,200
+- September 2023: 27,000
+- October 2023: 29,500
+- November 2023: 32,000
+- December 2023: 35,000
+- January 2024: 38,500
+- February 2024: 42,000
+- March 2024: 46,000
+
+Profile Views (Last 12 Months):
+- April 2023: 15,000
+- May 2023: 16,200
+- June 2023: 17,500
+- July 2023: 18,800
+- August 2023: 20,000
+- September 2023: 22,000
+- October 2023: 25,000
+- November 2023: 28,000
+- December 2023: 32,000
+- January 2024: 36,000
+- February 2024: 40,000
+- March 2024: 45,000
+
+Concerts (Last 12 Months):
+1. Date: 2023-05-20
+   Location: The Roxy, Los Angeles, CA
+   Registered: 1500
+   Attended: 1200
+   Revenue: $60,000
+   Refunded Tickets: 50
+
+2. Date: 2023-08-12
+   Location: Red Rocks Amphitheatre, Morrison, CO
+   Registered: 3000
+   Attended: 2800
+   Revenue: $140,000
+   Refunded Tickets: 100
+
+3. Date: 2023-11-05
+   Location: The Fillmore, San Francisco, CA
+   Registered: 2000
+   Attended: 1800
+   Revenue: $90,000
+   Refunded Tickets: 80
+
+Content Engagement (Last 12 Months):
+- April 2023:
+  - Total Posts: 20
+  - Total Views: 50,000
+  - Total Likes: 5,000
+  - Total Comments: 500
+  - Total Engagement: 5,500
+
+- May 2023:
+  - Total Posts: 25
+  - Total Views: 60,000
+  - Total Likes: 6,500
+  - Total Comments: 600
+  - Total Engagement: 7,100
+
+- June 2023:
+  - Total Posts: 22
+  - Total Views: 55,000
+  - Total Likes: 6,000
+  - Total Comments: 550
+  - Total Engagement: 6,550
+
+- July 2023:
+  - Total Posts: 18
+  - Total Views: 50,000
+  - Total Likes: 5,500
+  - Total Comments: 600
+  - Total Engagement: 6,100
+
+- August 2023:
+  - Total Posts: 20
+  - Total Views: 55,000
+  - Total Likes: 6,200
+  - Total Comments: 650
+  - Total Engagement: 6,850
+
+- September 2023:
+  - Total Posts: 23
+  - Total Views: 60,000
+  - Total Likes: 6,800
+  - Total Comments: 700
+  - Total Engagement: 7,500
+
+- October 2023:
+  - Total Posts: 25
+  - Total Views: 65,000
+  - Total Likes: 7,000
+  - Total Comments: 750
+  - Total Engagement: 7,750
+
+- November 2023:
+  - Total Posts: 22
+  - Total Views: 62,000
+  - Total Likes: 7,200
+  - Total Comments: 800
+  - Total Engagement: 8,000
+
+- December 2023:
+  - Total Posts: 20
+  - Total Views: 60,000
+  - Total Likes: 7,500
+  - Total Comments: 850
+  - Total Engagement: 8,350
+
+- January 2024:
+  - Total Posts: 18
+  - Total Views: 58,000
+  - Total Likes: 7,800
+  - Total Comments: 900
+  - Total Engagement: 8,700
+
+- February 2024:
+  - Total Posts: 20
+  - Total Views: 60,000
+  - Total Likes: 8,000
+  - Total Comments: 950
+  - Total Engagement: 8,950
+
+- March 2024:
+  - Total Posts: 25
+  - Total Views: 65,000
+  - Total Likes: 8,500
+  - Total Comments: 1000
+  - Total Engagement: 9,500
+

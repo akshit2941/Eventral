@@ -9,16 +9,8 @@ function Modal({ setOpenModal }) {
     <div className="modalBackground">
       <div className="modalContainer">
         <div className="titleCloseBtn">
-          {/* <button
-            onClick={() => {
-              setOpenModal(false);
-            }}
-          >
-            X
-          </button> */}
         </div>
 
-        {/* <div className="border-box"> */}
         <div className="profile-img">
           <img src={avatar} alt="profile_pic" />
         </div>
@@ -31,17 +23,17 @@ function Modal({ setOpenModal }) {
         </div>
 
         <div className="profile-stats">
-          <div className="stat-content">
-            <h3 className="stat-head">943</h3>
-            <p className="stat-para">Posts</p>
+          <div className="stat-content-modal">
+            <h3 className="stat-head-modal">943</h3>
+            <p className="stat-para-modal">Posts</p>
           </div>
-          <div className="stat-content">
-            <h3 className="stat-head">1257</h3>
-            <p className="stat-para">Likes</p>
+          <div className="stat-content-modal">
+            <h3 className="stat-head-modal">1257</h3>
+            <p className="stat-para-modal">Likes</p>
           </div>
-          <div className="stat-content">
-            <h3 className="stat-head">242K</h3>
-            <p className="stat-para">Followers</p>
+          <div className="stat-content-modal">
+            <h3 className="stat-head-modal">242K</h3>
+            <p className="stat-para-modal">Followers</p>
           </div>
         </div>
 
@@ -82,9 +74,6 @@ function Modal({ setOpenModal }) {
             <img src="https://www.svgrepo.com/show/157873/close-button.svg" alt="close" className="close-button" />
           </button>
         </div>
-
-        {/* </div> */}
-
         <div className="footer">
         </div>
       </div>
