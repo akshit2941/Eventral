@@ -2,20 +2,40 @@ import React, { useState, useEffect } from 'react'; // Import useState from Reac
 import './Navbar.css';
 import { Link } from "react-router-dom";
 import Modal from '../modal/modal';
+import { firestore, auth } from '../firebase/firebase';
 
-import defaultAvatar from '../../images/avatar.png';
-import { doSignOut, getUserAvatar } from '../firebase/auth';
+// import defaultAvatar from '../../images/avatar.png';
+import { doSignOut } from '../firebase/auth';
 
 function Navbar() {
     const [modalOpen, setModalOpen] = useState(false);
     const [avatarUrl, setAvatarUrl] = useState(null);
 
     useEffect(() => {
-        // Fetch user avatar from Firestore when component mounts
         const fetchAvatar = async () => {
-            const url = await getUserAvatar();
-            // If avatar URL is not fetched successfully or is null, set default avatar URL
-            setAvatarUrl(url || defaultAvatar);
+            try {
+                // Get the currently logged-in user
+                const user = auth.currentUser;
+
+
+                
+                if (user) {
+                    const userId = user.uid;
+                    const userRef = firestore.collection('artists').doc(userId);
+                    const userDoc = await userRef.get();
+
+                    if (userDoc.exists) {
+                        const { photoUrl } = userDoc.data();
+                        setAvatarUrl(photoUrl);
+                    } else {
+                        console.log('User document not found');
+                    }
+                } else {
+                    console.log('No user logged in');
+                }
+            } catch (error) {
+                console.error("Error fetching avatar:", error);
+            }
         };
         fetchAvatar();
     }, []);
@@ -35,11 +55,12 @@ function Navbar() {
                         Logout
                     </button>
                 </div>
-                <button className='user-btn openModalBtn'
-                    onClick={() => {
-                        setModalOpen(true);
-                    }}>
-                    <img src={avatarUrl} alt="profile_pic" className='user-pic' />
+                <button className='user-btn openModalBtn' onClick={() => { setModalOpen(true); }}>
+                    <img
+                        src={avatarUrl}
+                        alt="profile_pic"
+                        className='user-pic'
+                    />
                 </button>
                 {modalOpen && <Modal setOpenModal={setModalOpen} />}
 

@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import "./modal.css";
 import { Link } from "react-router-dom";
 import avatar from '../../images/avatar.png';
 
+import { auth, firestore } from '../firebase/firebase';
+
 function Modal({ setOpenModal }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = firestore.collection('artists').doc(userAuth.uid);
+        const snapshot = await userRef.get();
+
+        if (snapshot.exists) {
+          setUser(snapshot.data());
+        } else {
+          console.log('No such document!');
+          console.log(user.displayName);
+        }
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+
+
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -17,8 +42,8 @@ function Modal({ setOpenModal }) {
 
         <div className="profile-details">
           <div>
-            <h3 className="head">Frank Ocean</h3>
-            <p className="content">frankocean999@gmail.com</p>
+            <h3 className="head">{user ? user.displayName : 'Guest'}</h3>
+            <p className="content">{user ? user.email : 'guest@example.com'}</p>
           </div>
         </div>
 
@@ -61,7 +86,7 @@ function Modal({ setOpenModal }) {
         <div className="profile-navigator">
           <div className="profile-buttons">
             <Link to="/event">
-            <button className="profile-button-main" id="grey">New Post</button>
+              <button className="profile-button-main" id="grey">New Post</button>
             </Link>
             <Link to="/insight">
               <button className="profile-button-main" id="crimson">Analytics</button>
