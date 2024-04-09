@@ -17,7 +17,7 @@ function Navbar() {
 
             if (user) {
                 const avatarUrl = user.photoURL;
-                console.log(avatarUrl);
+                // console.log(avatarUrl);
                 setAvatarUrl(avatarUrl);
             } else {
                 console.log('No user logged in');

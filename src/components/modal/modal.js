@@ -21,9 +21,9 @@ function Modal({ setOpenModal }) {
         const displayName = user.displayName;
         const email = user.email;
 
-        console.log(avatarUrl);
-        console.log(displayName);
-        console.log(email);
+        // console.log(avatarUrl);
+        // console.log(displayName);
+        // console.log(email);
 
         setAvatarUrl(avatarUrl);
         setDisplayName(displayName);

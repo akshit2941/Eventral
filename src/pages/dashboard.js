@@ -1,12 +1,28 @@
 import React from 'react';
 import Navbar from '../components/Navbar/Navbar';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../pages_css/dashboard.css';
+import axios from 'axios';
 
 import charts from "../images/charts.png";
 import charts_2 from "../images/chart_2.png";
 
 function DashboardPage() {
+
+    const [data, setData] = useState({});
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+
+        const response = await axios.get('http://127.0.0.1:5000/api/metrics');
+        setData(response.data);
+        console.log(response.data);
+
+    };
+
     useEffect(() => {
         document.title = "Dashboard";
     }, []);
@@ -19,6 +35,13 @@ function DashboardPage() {
             <div className="body-main">
                 <div className="dashboard">
                     <h2>Dashboard</h2>
+                </div>
+
+                <div>
+                    {/* Render your data here */}
+                    <p>Total Revenue: {data['Total Revenue']}</p>
+                    <p>Total Tickets Sold: {data['Total Tickets Sold']}</p>
+                    {/* Add other data fields as needed */}
                 </div>
 
                 <div className="sub-dashboard">
