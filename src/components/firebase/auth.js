@@ -82,26 +82,27 @@ export const doSendEmailVerification = () => {
   });
 };
 
-// Function to get user avatar URL from Firestore
-export const getUserAvatar = async () => {
-  try {
-    const userId = auth.currentUser.uid; // Get current user ID
-    const userDoc = await firestore.collection('artists').doc(userId).get();
 
-    if (userDoc.exists) {
-      const userData = userDoc.data();
-      if (userData.photoUrl) {
-        return userData.photoUrl;
-      } else {
-        console.log("User document does not contain photoUrl field");
-        return null;
-      }
-    } else {
-      console.log("User document does not exist");
-      return null;
-    }
-  } catch (error) {
-    console.error("Error fetching user avatar:", error);
-    return null;
-  }
-};
+// // Function to get user avatar URL from Firestore
+// export const getUserAvatar = async () => {
+//   try {
+//     const userId = auth.currentUser.uid; // Get current user ID
+//     const userDoc = await firestore.collection('artists').doc(userId).get();
+
+//     if (userDoc.exists) {
+//       const userData = userDoc.data();
+//       if (userData.photoUrl) {
+//         return userData.photoUrl;
+//       } else {
+//         console.log("User document does not contain photoUrl field");
+//         return null;
+//       }
+//     } else {
+//       console.log("User document does not exist");
+//       return null;
+//     }
+//   } catch (error) {
+//     console.error("Error fetching user avatar:", error);
+//     return null;
+//   }
+// };

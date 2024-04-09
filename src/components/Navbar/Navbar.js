@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'; // Import useState from Reac
 import './Navbar.css';
 import { Link } from "react-router-dom";
 import Modal from '../modal/modal';
-import { firestore, auth } from '../firebase/firebase';
+import { auth } from '../firebase/firebase';
 
 // import defaultAvatar from '../../images/avatar.png';
 import { doSignOut } from '../firebase/auth';
@@ -12,32 +12,21 @@ function Navbar() {
     const [avatarUrl, setAvatarUrl] = useState(null);
 
     useEffect(() => {
-        const fetchAvatar = async () => {
-            try {
-                // Get the currently logged-in user
-                const user = auth.currentUser;
+        // Check if user is already signed in
+        const unsubscribe = auth.onAuthStateChanged(async (user) => {
 
-
-                
-                if (user) {
-                    const userId = user.uid;
-                    const userRef = firestore.collection('artists').doc(userId);
-                    const userDoc = await userRef.get();
-
-                    if (userDoc.exists) {
-                        const { photoUrl } = userDoc.data();
-                        setAvatarUrl(photoUrl);
-                    } else {
-                        console.log('User document not found');
-                    }
-                } else {
-                    console.log('No user logged in');
-                }
-            } catch (error) {
-                console.error("Error fetching avatar:", error);
+            if (user) {
+                const avatarUrl = user.photoURL;
+                console.log(avatarUrl);
+                setAvatarUrl(avatarUrl);
+            } else {
+                console.log('No user logged in');
             }
+        });
+
+        return () => {
+            unsubscribe(); // Cleanup function to unsubscribe from the auth state listener
         };
-        fetchAvatar();
     }, []);
 
     return (
