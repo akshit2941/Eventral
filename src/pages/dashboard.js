@@ -7,25 +7,30 @@ import axios from 'axios';
 import charts from "../images/charts.png";
 import charts_2 from "../images/chart_2.png";
 
+
+
 function DashboardPage() {
 
-    const [data, setData] = useState({});
+    const [stats, setStats] = useState(null);
 
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/stats');
+                setStats(response.data);
+                console.log(response.data); // Print data in console
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        };
+
         fetchData();
     }, []);
-
-    const fetchData = async () => {
-
-        const response = await axios.get('http://127.0.0.1:5000/api/metrics');
-        setData(response.data);
-        console.log(response.data);
-
-    };
 
     useEffect(() => {
         document.title = "Dashboard";
     }, []);
+
     return (
         <div className="div-body">
             <header className='header'>
@@ -38,10 +43,15 @@ function DashboardPage() {
                 </div>
 
                 <div>
-                    {/* Render your data here */}
-                    <p>Total Revenue: {data['Total Revenue']}</p>
-                    <p>Total Tickets Sold: {data['Total Tickets Sold']}</p>
-                    {/* Add other data fields as needed */}
+                    <h1>Artist Stats</h1>
+                    {stats && (
+                        <div>
+                            <p>{stats['Total Revenue']}</p>
+                            <p>Total Tickets Sold: {stats['Total Tickets Sold']}</p>
+                            <p>Ticket Revenue: {stats['Ticket Revenue']}</p>
+                            {/* Add more data fields as needed */}
+                        </div>
+                    )}
                 </div>
 
                 <div className="sub-dashboard">
@@ -204,5 +214,6 @@ function DashboardPage() {
         </div>
     );
 }
+
 
 export default DashboardPage;
