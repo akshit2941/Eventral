@@ -10,6 +10,16 @@ class ArtistStats:
         self.profile_views = profile_views
         self.concerts = concerts
         self.content_engagement = content_engagement
+        
+    def format_currency(self, value):
+        # Format value to include commas and represent in Rs format
+        formatted_value = "Rs {:,}".format(value)
+        return formatted_value
+    
+    def format_number(self, value):
+        # Format value to include commas
+        formatted_value = "{:,}".format(value)
+        return formatted_value
 
     def calculate_metrics(self):
         # Total revenue, total ticket sold, ticket revenue, current reach
@@ -36,23 +46,24 @@ class ArtistStats:
         content_saved = 5000  # Assume a constant number of saved content for demonstration
 
         return {
-            "Total Revenue": total_revenue,
-            "Total Tickets Sold": total_tickets_sold,
-            "Ticket Revenue": ticket_revenue,
-            "Current Reach": current_reach,
-            "Last Month Ticket Sold": last_month_ticket_sold,
-            "Last Month Refunded Tickets": last_month_refunded_tickets,
-            "Last Month Attended": last_month_attended,
-            "Last Month Growth in Ticket Sold (%)": last_month_growth_ticket_sold,
-            "Last Month Growth in Refunded Tickets (%)": last_month_growth_refunded_tickets,
-            "Last Month Growth in Attended (%)": last_month_growth_attended,
-            "Content Views": content_views,
-            "Content Likes": content_likes,
-            "Content Comments": content_comments,
-            "Content Engagement": content_engagement,
-            "Content Interaction Rate (%)": content_interaction_rate,
-            "Content Saved": content_saved
+            "Total Revenue": self.format_currency(total_revenue),
+           "Total Tickets Sold": self.format_number(total_tickets_sold),
+            "Ticket Revenue": self.format_currency(ticket_revenue),
+            "Current Reach": self.format_number(current_reach),
+            "Last Month Ticket Sold": self.format_number(last_month_ticket_sold),
+            "Last Month Refunded Tickets": self.format_number(last_month_refunded_tickets),
+            "Last Month Attended": self.format_number(last_month_attended),
+            "Last Month Growth in Ticket Sold (%)": self.format_number(last_month_growth_ticket_sold),
+            "Last Month Growth in Refunded Tickets (%)": self.format_number(last_month_growth_refunded_tickets),
+            "Last Month Growth in Attended (%)": self.format_number(last_month_growth_attended),
+            "Content Views": self.format_number(content_views),
+            "Content Likes": self.format_number(content_likes),
+            "Content Comments": self.format_number(content_comments),
+            "Content Engagement": self.format_number(content_engagement),
+            "Content Interaction Rate (%)": self.format_number(content_interaction_rate),
+            "Content Saved": self.format_number(content_saved)
         }
+        
 
 # Sample data
 sample_data = {

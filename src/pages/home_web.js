@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "../pages_css/home_web.css"; // Assuming you have CSS styles in App.css
 import Navbar from "../components/Navbar/Navbar";
 import CreatePost from '../components/new_post/new';
+import axios from 'axios';
 
 
 import img1 from "../images/img-1.jpg";
@@ -12,7 +13,23 @@ import chart from "../images/chart.png";
 
 function Home_web() {
     const [modalOpen, setModalOpen] = useState(false);
-    
+
+    const [stats, setStats] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/stats');
+                setStats(response.data);
+                console.log(response.data); // Print data in console
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     useEffect(() => {
         document.title = "Eventral";
     }, []);
@@ -35,22 +52,26 @@ function Home_web() {
                 </div>
 
                 <div className="analytics-boxes">
-                    <div className="ana-box">
-                        <h2>Revenue</h2>
-                        <h1>$2.3M</h1>
-                    </div>
-                    <div className="ana-box">
-                        <h2>Ticket Sold</h2>
-                        <h1>19,000</h1>
-                    </div>
-                    <div className="ana-box">
-                        <h2>Ticket Revenue</h2>
-                        <h1>$1.9M</h1>
-                    </div>
-                    <div className="ana-box">
-                        <h2>Current Reach</h2>
-                        <h1>13,000</h1>
-                    </div>
+                    {stats && (
+                        <>
+                            <div className="ana-box">
+                                <h2>Revenue</h2>
+                                <h1>{stats['Total Revenue']}</h1>
+                            </div>
+                            <div className="ana-box">
+                                <h2>Ticket Sold</h2>
+                                <h1>{stats['Total Tickets Sold']}</h1>
+                            </div>
+                            <div className="ana-box">
+                                <h2>Ticket Revenue</h2>
+                                <h1>{stats['Ticket Revenue']}</h1>
+                            </div>
+                            <div className="ana-box">
+                                <h2>Current Reach</h2>
+                                <h1>{stats['Content Engagement']}</h1>
+                            </div>
+                        </>
+                    )}
                 </div>
 
                 <div className="ticket-sale">
