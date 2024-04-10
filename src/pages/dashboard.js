@@ -6,12 +6,14 @@ import axios from 'axios';
 
 import charts from "../images/charts.png";
 import charts_2 from "../images/chart_2.png";
+// import { data } from 'autoprefixer';
 
 
 
 function DashboardPage() {
 
     const [stats, setStats] = useState(null);
+    const [concerts, setConcerts] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,6 +21,18 @@ function DashboardPage() {
                 const response = await axios.get('http://localhost:5000/stats');
                 setStats(response.data);
                 console.log(response.data); // Print data in console
+                const lastFiveConcerts = response.data['Last 5 Concerts'];
+
+                const [concert1, concert2, concert3, concert4, concert5] = lastFiveConcerts;
+
+                // Printing data of each concert
+                console.log("Concert 1:", concert1);
+                console.log("Concert 2:", concert2);
+                console.log("Concert 3:", concert3);
+                console.log("Concert 4:", concert4);
+                console.log("Concert 5:", concert5);
+
+                setConcerts(lastFiveConcerts);
             } catch (error) {
                 console.error('Error fetching stats:', error);
             }
@@ -26,6 +40,10 @@ function DashboardPage() {
 
         fetchData();
     }, []);
+
+
+    // const firstConcert = stats['Last 5 Concerts'][0];
+    // console.log(data)
 
     useEffect(() => {
         document.title = "Dashboard";
@@ -37,21 +55,11 @@ function DashboardPage() {
                 <Navbar />
             </header>
 
+
+
             <div className="body-main">
                 <div className="dashboard">
                     <h2>Dashboard</h2>
-                </div>
-
-                <div>
-                    <h1>Artist Stats</h1>
-                    {stats && (
-                        <div>
-                            <p>{stats['Total Revenue']}</p>
-                            <p>Total Tickets Sold: {stats['Total Tickets Sold']}</p>
-                            <p>Ticket Revenue: {stats['Ticket Revenue']}</p>
-                            {/* Add more data fields as needed */}
-                        </div>
-                    )}
                 </div>
 
                 <div className="sub-dashboard">
@@ -61,13 +69,16 @@ function DashboardPage() {
                 </div>
 
                 <div className="dash-rev">
-                    <h2>
-                        Total revenue
-                    </h2>
-                    <h3>
-                        $1,412,985.00
-                    </h3>
-
+                    {stats && (
+                        <>
+                            <h2>
+                                Total revenue
+                            </h2>
+                            <h3>
+                                {stats['Ticket Revenue']}
+                            </h3>
+                        </>
+                    )}
                     <div className="rev-img">
                         <img src={charts} alt="Image 1" />
                     </div>
@@ -75,23 +86,25 @@ function DashboardPage() {
                 </div>
 
                 <div className="analytics-boxes">
-                    <div className="ana-box">
-                        <h2>Ticket sold</h2>
-                        <h1>13,895</h1>
-                        <p className="green">+22%</p>
-                    </div>
-
-                    <div className="ana-box">
-                        <h2>Refunded tickets</h2>
-                        <h1>2,000</h1>
-                        <p className="green">+5%</p>
-                    </div>
-
-                    <div className="ana-box">
-                        <h2>Total attendees</h2>
-                        <h1>11,895</h1>
-                        <p className="green">+18%</p>
-                    </div>
+                    {stats && (
+                        <>
+                            <div className="ana-box">
+                                <h2>Ticket sold</h2>
+                                <h1>{stats['Total Tickets Sold']}</h1>
+                                <p className="green">+22%</p>
+                            </div>
+                            <div className="ana-box">
+                                <h2>Refunded tickets</h2>
+                                <h1>{stats['Total Refunded Tickets']}</h1>
+                                <p className="red">+5%</p>
+                            </div>
+                            <div className="ana-box">
+                                <h2>Total attendees</h2>
+                                <h1>{stats['Total Attendees']}</h1>
+                                <p className="green">+18%</p>
+                            </div>
+                        </>
+                    )}
 
                 </div>
 
@@ -101,13 +114,16 @@ function DashboardPage() {
                     </div>
 
                     <div className="stream-tickets">
-                        <h1>
-                            Tickets
-                        </h1>
-                        <h2>
-                            $1,412,985.00
-                        </h2>
-
+                        {stats && (
+                            <>
+                                <h1>
+                                    Tickets
+                                </h1>
+                                <h2>
+                                    {stats['Total Revenue']}
+                                </h2>
+                            </>
+                        )}
                     </div>
 
                     <div className="stream-img">
@@ -133,76 +149,26 @@ function DashboardPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="table-main">
-                                    Beyonce World Tour
-                                </td>
-                                <td>
-                                    Jul 21, 2023
-                                </td>
-                                <td>
-                                    $500,000.00
-                                </td>
-                                <td>
-                                    5,000
-                                </td>
-                                <td>
-                                    5,000
-                                </td>
-                            </tr>
+                            {concerts.map((concert, index) => (
+                                <tr key={index}>
+                                    <td className="table-main">
+                                        {concert['Concert Name']}
+                                    </td>
+                                    <td>
+                                        {concert.Date}
+                                    </td>
+                                    <td>
+                                        {concert.Revenue}
+                                    </td>
+                                    <td>
+                                        {concert['Tickets Sold']}
 
-                            <tr>
-                                <td className="table-main">
-                                    Kanye West Concert
-                                </td>
-                                <td>
-                                    Aug 5, 2023
-                                </td>
-                                <td>
-                                    $350,000.00
-                                </td>
-                                <td>
-                                    3,000
-                                </td>
-                                <td>
-                                    3,000
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td className="table-main">
-                                    Drake Live Perfomance
-                                </td>
-                                <td>
-                                    Sep 1, 2023
-                                </td>
-                                <td>
-                                    $562,000.00
-                                </td>
-                                <td>
-                                    5,620
-                                </td>
-                                <td>
-                                    5,620
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="table-main">
-                                    Arina Grande Concert
-                                </td>
-                                <td>
-                                    Oct 10, 2023
-                                </td>
-                                <td>
-                                    $425,000.00
-                                </td>
-                                <td>
-                                    5,000
-                                </td>
-                                <td>
-                                    4,500
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>
+                                        {concert.Attended}
+                                    </td>
+                                </tr>
+                            ))}
 
                         </tbody>
                     </table>

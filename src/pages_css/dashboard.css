@@ -190,6 +190,14 @@ body {
     font-size: 20px;
 }
 
+.red {
+    color: rgb(255, 0, 0);
+    padding-top: 10px;
+    margin-left: 0;
+    font-weight: 800;
+    font-size: 20px;
+}
+
 .stream-header h2 {
     font-family: Helvetica;
     font-weight: 900;
@@ -244,4 +252,8 @@ td {
 .table-main {
     font-weight: 700;
 
+}
+
+.concerts{
+    padding-bottom: 150px;
 }

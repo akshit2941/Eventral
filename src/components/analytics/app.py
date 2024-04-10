@@ -22,11 +22,30 @@ class ArtistStats:
         return formatted_value
 
     def calculate_metrics(self):
+        # Last 5 concerts
+        last_5_concerts = self.concerts[-5:]
+
+        # Prepare data for last 5 concerts
+        last_5_concerts_data = []
+        for concert in last_5_concerts:
+            concert_data = {
+                "Concert Name": concert['Name'],
+                "Date": concert['Date'],
+                "Attended": concert['Attended'],
+                "Revenue": "Rs " + self.format_number(concert['Revenue']),
+                "Tickets Sold": concert['Registered']
+            }
+            last_5_concerts_data.append(concert_data)
+        
         # Total revenue, total ticket sold, ticket revenue, current reach
         total_revenue = sum([concert['Revenue'] for concert in self.concerts])
         total_tickets_sold = sum([concert['Registered'] for concert in self.concerts])
         ticket_revenue = sum([concert['Revenue'] for concert in self.concerts])
         current_reach = self.followers_growth[-1]
+        
+        # Total refunded tickets and total attendees
+        total_refunded_tickets = sum([concert['Refunded Tickets'] for concert in self.concerts])
+        total_attendees = sum([concert['Attended'] for concert in self.concerts])
 
         # Comparing data from last month
         last_month = self.concerts[-1]
@@ -61,7 +80,10 @@ class ArtistStats:
             "Content Comments": self.format_number(content_comments),
             "Content Engagement": self.format_number(content_engagement),
             "Content Interaction Rate (%)": self.format_number(content_interaction_rate),
-            "Content Saved": self.format_number(content_saved)
+            "Content Saved": self.format_number(content_saved),
+            "Total Refunded Tickets": self.format_number(total_refunded_tickets),
+            "Total Attendees": self.format_number(total_attendees),
+            "Last 5 Concerts": last_5_concerts_data
         }
         
 
@@ -70,15 +92,16 @@ sample_data = {
     "followers_growth": [20000, 21500, 22800, 24000, 25200, 27000, 29500, 32000, 35000, 38500, 42000, 46000],
     "profile_views": [15000, 16200, 17500, 18800, 20000, 22000, 25000, 28000, 32000, 36000, 40000, 45000],
     "concerts": [
-        {"Registered": 1500, "Attended": 1200, "Revenue": 60000, "Refunded Tickets": 50},
-        {"Registered": 3000, "Attended": 2800, "Revenue": 140000, "Refunded Tickets": 100},
-        {"Registered": 6500, "Attended": 4800, "Revenue": 170000, "Refunded Tickets": 20},
-        {"Registered": 8000, "Attended": 5800, "Revenue": 140000, "Refunded Tickets": 100},
-        {"Registered": 7000, "Attended": 800, "Revenue": 148000, "Refunded Tickets": 40},
-        {"Registered": 3000, "Attended": 2800, "Revenue": 140000, "Refunded Tickets": 70},
-        {"Registered": 5000, "Attended": 3800, "Revenue": 170000, "Refunded Tickets": 50},
-        {"Registered": 6000, "Attended": 1800, "Revenue": 90000, "Refunded Tickets": 80}
+        {"Name": "Harmony Fest", "Date": "2024-04-01", "Registered": 1500, "Attended": 1200, "Revenue": 60000, "Refunded Tickets": 50},
+        {"Name": "Rhythmic Fusion", "Date": "2024-04-07", "Registered": 3000, "Attended": 2800, "Revenue": 140000, "Refunded Tickets": 100},
+        {"Name": "Melodic Mirage", "Date": "2024-04-14", "Registered": 6500, "Attended": 4800, "Revenue": 170000, "Refunded Tickets": 20},
+        {"Name": "Sonic Serenade", "Date": "2024-04-21", "Registered": 8000, "Attended": 5800, "Revenue": 140000, "Refunded Tickets": 100},
+        {"Name": "Groove Gala", "Date": "2024-04-28", "Registered": 7000, "Attended": 800, "Revenue": 148000, "Refunded Tickets": 40},
+        {"Name": "Beat Bliss", "Date": "2024-05-05", "Registered": 3000, "Attended": 2800, "Revenue": 140000, "Refunded Tickets": 70},
+        {"Name": "Echo Extravaganza", "Date": "2024-05-12", "Registered": 5000, "Attended": 3800, "Revenue": 170000, "Refunded Tickets": 50},
+        {"Name": "Sound Summit", "Date": "2024-05-19", "Registered": 6000, "Attended": 1800, "Revenue": 90000, "Refunded Tickets": 80}
     ],
+    
     "content_engagement": [
         {"Total Views": 50000, "Total Likes": 5000, "Total Comments": 500, "Total Engagement": 5500},
         {"Total Views": 60000, "Total Likes": 6500, "Total Comments": 600, "Total Engagement": 7100},
