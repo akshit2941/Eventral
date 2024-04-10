@@ -93,7 +93,7 @@ sample_data = {
     "profile_views": [15000, 16200, 17500, 18800, 20000, 22000, 25000, 28000, 32000, 36000, 40000, 45000],
     "concerts": [
         {"Name": "Harmony Fest", "Date": "2024-04-01", "Registered": 1500, "Attended": 1200, "Revenue": 60000, "Refunded Tickets": 50},
-        {"Name": "Rhythmic Fusion", "Date": "2024-04-07", "Registered": 3000, "Attended": 2800, "Revenue": 140000, "Refunded Tickets": 100},
+        {"Name": "Rhythmic Fusion", "Date": "2024-04-07", "Registered": 3000, "Attended": 2800, "Revenue": 10000, "Refunded Tickets": 100},
         {"Name": "Melodic Mirage", "Date": "2024-04-14", "Registered": 6500, "Attended": 4800, "Revenue": 170000, "Refunded Tickets": 20},
         {"Name": "Sonic Serenade", "Date": "2024-04-21", "Registered": 8000, "Attended": 5800, "Revenue": 140000, "Refunded Tickets": 100},
         {"Name": "Groove Gala", "Date": "2024-04-28", "Registered": 7000, "Attended": 800, "Revenue": 148000, "Refunded Tickets": 40},

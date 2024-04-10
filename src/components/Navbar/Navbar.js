@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Modal from '../modal/modal';
 import { auth } from '../firebase/firebase';
 
-// import defaultAvatar from '../../images/avatar.png';
+import defaultAvatar from '../../images/avatar.png';
 import { doSignOut } from '../firebase/auth';
 
 function Navbar() {
@@ -45,11 +45,12 @@ function Navbar() {
                     </button>
                 </div>
                 <button className='user-btn openModalBtn' onClick={() => { setModalOpen(true); }}>
-                    <img
+                    {/* <img
                         src={avatarUrl}
                         alt="profile_pic"
                         className='user-pic'
-                    />
+                    /> */}
+                    <img src={avatarUrl ? avatarUrl : defaultAvatar} alt="Avatar" className="user-pic" />
                 </button>
                 {modalOpen && <Modal setOpenModal={setModalOpen} />}
 

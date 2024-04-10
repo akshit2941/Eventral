@@ -1,5 +1,11 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Ignore node_modules directory
+node_modules/
+
+# Ignore .env file
+.env
+
 # dependencies
 /node_modules
 /.pnp
@@ -21,13 +27,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-#Firebase
-VITE_FIREBASE_API_KEY=AIzaSyDFK1cFrZAgpQCH6JH_XukzDvx-iFLreVE
-VITE_FIREBASE_AUTH_DOMAIN=eventral-2d7da.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=eventral-2d7da
-VITE_FIREBASE_STORAGE_BUCKET=eventral-2d7da.appspot.com
-VITE_FIREBASE_MESSAGING_SENDER_ID=891757773347
-VITE_FIREBASE_APP_ID=1:891757773347:web:3f4a61a6d5148236cda796
-VITE_FIREBASE_MEASUREMENT_ID=G-PGJV0HKB2H
 

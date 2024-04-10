@@ -5,13 +5,12 @@ import { getDatabase } from "firebase/database"; // Import Realtime Database if 
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDFK1cFrZAgpQCH6JH_XukzDvx-iFLreVE",
-  authDomain: "eventral-2d7da.firebaseapp.com",
-  projectId: "eventral-2d7da",
-  storageBucket: "eventral-2d7da.appspot.com",
-  messagingSenderId: "891757773347",
-  appId: "1:891757773347:web:3f4a61a6d5148236cda796",
-  measurementId: "G-PGJV0HKB2H"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);

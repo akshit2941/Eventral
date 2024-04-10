@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import "./modal.css";
 import { Link } from "react-router-dom";
-// import avatar from '../../images/avatar.png';
+import defaultAvatar from '../../images/avatar.png';
 
 import { auth } from '../firebase/firebase';
 
@@ -45,7 +45,8 @@ function Modal({ setOpenModal }) {
         </div>
 
         <div className="profile-img">
-          <img src={avatarUrl || 'default_avatar.jpg'} alt="profile_pic" />
+          {/* <img src={avatarUrl || 'default_avatar.jpg'} alt="profile_pic" /> */}
+          <img src={avatarUrl ? avatarUrl : defaultAvatar} alt="Avatar" />
         </div>
 
         <div className="profile-details">
