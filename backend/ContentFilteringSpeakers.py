@@ -18,18 +18,24 @@ ted_talkers = [
     ["Lakshmi Pratury", "Storytelling, entrepreneurship, innovation", "https://nettv4u.com/uploads/01-01-2024/stunning-stills-of-shirley-setia.png"]
 ]
 
-# Select 5 random TED Talk speakers
 random_ted_talkers = random.sample(ted_talkers, 5)
 
-# Print the details of selected TED Talk speakers
+SpeakerNameList=[]
+SpeakerPhotoUrlList = []
+
+
 for speaker in random_ted_talkers:
-    print(f"Name: {speaker[0]}")
-    print(f"Expertise: {speaker[1]}")
-    print(f"PhotoUrl: {speaker[2]}")
-    print()
+    # print(f"Name: {speaker[0]}")
+    SpeakerNameList.append(speaker[0])
+    # print(f"Expertise: {speaker[1]}")
+    # print(f"PhotoUrl: {speaker[2]}")
+    SpeakerPhotoUrlList.append(speaker[2])
+    # print()
 
 # Extract the top 5 unique genres
 genres = [speaker[1] for speaker in random_ted_talkers]
 top5_genres = list(set(genres))[:5]
 
+print(SpeakerNameList)
+print(SpeakerPhotoUrlList)
 print(top5_genres)

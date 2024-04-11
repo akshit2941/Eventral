@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes
-import './new.css';
-import { getFirestore,doc, setDoc } from "firebase/firestore";
+import './event.css';
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
 
 function NewPost({ setOpenModal }) {
-    const [postTitle, setpostTitle] = useState('');
-    const [postDescription, setpostDescription] = useState('');
-    const [postCategory, setpostCategory] = useState('');
-    const [postTags, setpostTags] = useState('');
+    const [eventTitle, setEventTitle] = useState('');
+    const [eventDescription, setEventDescription] = useState('');
+    const [eventCategory, setEventCategory] = useState('');
+    const [eventDate, setEventDate] = useState('');
     const [mediaFile, setMediaFile] = useState(null);
     const [userId, setUserId] = useState(null);
 
@@ -45,16 +45,16 @@ function NewPost({ setOpenModal }) {
 
             const imageRef = ref(storage, `images/${mediaFile.name}-${uuidv4()}`);
             const snapshot = await uploadBytes(imageRef, mediaFile);
-            const PostimageUrl = await getDownloadURL(snapshot.ref);
+            const EventimageUrl = await getDownloadURL(snapshot.ref);
 
             const docRef = doc(db, "artists", userId);
 
             await setDoc(docRef, {
-                postTitle,
-                postDescription,
-                postCategory,
-                postTags,
-                PostimageUrl
+                eventTitle,
+                eventDescription,
+                eventCategory,
+                eventDate,
+                EventimageUrl
             }, { merge: true });
 
             console.log("Document written to Database");
@@ -65,48 +65,48 @@ function NewPost({ setOpenModal }) {
     };
 
     return (
-        <div className="newPostmodalBackground">
-            <div className="newPostmodalContainer">
-                <div className="newPosttitleCloseBtn">
+        <div className="newEventmodalBackground">
+            <div className="newEventmodalContainer">
+                <div className="newEventtitleCloseBtn">
                     <button onClick={() => setOpenModal(false)}>X</button>
                 </div>
                 <div className="main-container">
-                    <h1 className="head">Post Details</h1>
+                    <h1 className="head">Event Details</h1>
                     <div className="container-details">
-                        <h1 className="head-title">Post Title</h1>
+                        <h1 className="head-title">Event Title</h1>
                         <input
                             type="text"
                             className="event-tile-input-area"
                             placeholder="Event name"
-                            value={postTitle}
-                            onChange={(e) => setpostTitle(e.target.value)}
+                            value={eventTitle}
+                            onChange={(e) => setEventTitle(e.target.value)}
                         />
 
-                        <h1 className="head-title head-margin">Post Description</h1>
+                        <h1 className="head-title head-margin">Event Description</h1>
                         <input
                             type="text"
                             className="event-tile-input-area"
                             placeholder="Add a brief desciption"
-                            value={postDescription}
-                            onChange={(e) => setpostDescription(e.target.value)}
+                            value={eventDescription}
+                            onChange={(e) => setEventDescription(e.target.value)}
                         />
 
-                        <h1 className="head-title head-margin">Post Category</h1>
+                        <h1 className="head-title head-margin">Event Category</h1>
                         <input
                             type="text"
                             className="event-tile-input-area"
-                            placeholder="Add Post Category"
-                            value={postCategory}
-                            onChange={(e) => setpostCategory(e.target.value)}
+                            placeholder="Add Event Category"
+                            value={eventCategory}
+                            onChange={(e) => setEventCategory(e.target.value)}
                         />
 
-                        <h1 className="head-title head-margin">Post tags</h1>
+                        <h1 className="head-title head-margin">Event Date</h1>
                         <input
                             type="text"
                             className="event-tile-input-area"
                             placeholder="Enter Tags...."
-                            value={postTags}
-                            onChange={(e) => setpostTags(e.target.value)}
+                            value={eventDate}
+                            onChange={(e) => setEventDate(e.target.value)}
                         />
 
                         <h1 className="head-title head-margin">Upload Media</h1>
@@ -121,10 +121,10 @@ function NewPost({ setOpenModal }) {
 
                         <div className="preview-container">
                             <div className="media-preview">
-                                <h1 className="preview-head-main">Content Preview</h1>
-                                <h1 className="preview-head">{postTitle}</h1>
+                                <h1 className="preview-head-main">Event Preview</h1>
+                                <h1 className="preview-head">{eventTitle}</h1>
                                 {mediaFile && <img src={URL.createObjectURL(mediaFile)} alt="" className="preview-img" />}
-                                <p className="media-des event-desciption">{postDescription}</p>
+                                <p className="media-des event-desciption">{eventDescription}</p>
                             </div>
                         </div>
 

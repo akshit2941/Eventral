@@ -23,15 +23,20 @@ comedians = [
     ["Samay Raina", "https://m.media-amazon.com/images/M/MV5BMTMyZjcwZDItNGQ5MC00ZjJjLWIyOWEtOTRhOTI5Yzg4ZGU2XkEyXkFqcGdeQXVyOTg3NTQwMTU@.jpg", "13.6 Lakh", "Gaming Comedy"]
 ]
 
+
 random_comedians = random.sample(comedians, 5)
 Top5Genre = []
+ComedianNameList=[]
+ComedianUrlList = []
+
 
 print("Randomly selected comedians:")
 for comedian in random_comedians:
-    print("Name:", comedian[0])
-    print("Profile URL:", comedian[1])
-    print("Speciality:", comedian[3])
+    ComedianNameList.append(comedian[0])
+    ComedianUrlList.append(comedian[1])
     Top5Genre.append(comedian[3])
     print()
 
+print(ComedianNameList)
+print(ComedianUrlList)
 print(Top5Genre)
