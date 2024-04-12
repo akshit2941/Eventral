@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import "../pages_css/insight.css"; // Assuming you have CSS styles in App.css
 import Navbar from "../components/Navbar/Navbar";
 
-import insight_charts from "../images/insight-chart.png";
+import LineChartInsight from "../components/charts/LineChart";
 
 function Insight() {
     useEffect(() => {
@@ -60,7 +60,7 @@ function Insight() {
                         <h2>Total Interaction</h2>
                     </div>
                     <div className="chart-img">
-                        <img src={insight_charts} alt="Image 1" />
+                        <LineChartInsight />
                     </div>
                 </div>
 

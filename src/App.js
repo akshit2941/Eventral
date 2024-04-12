@@ -1,5 +1,5 @@
-import React from 'react';
-import './index.css';
+import React, { useEffect, useState } from 'react';
+import './App.css';
 
 import Event from './pages/event';
 import Dashboard from './pages/dashboard';
@@ -12,8 +12,13 @@ import Register from "./components/auth/register";
 import { AuthProvider } from "./components/contexts/authContext";
 import { useRoutes } from "react-router-dom";
 
+import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
+
 
 function App() {
+
+  const [loading, setLoading] = useState(false);
+
   const routesArray = [
     {
       path: "*",
@@ -46,13 +51,40 @@ function App() {
   ];
 
   let routesElement = useRoutes(routesArray);
-  return (
-    <AuthProvider>
 
-      <div className="w-full h-screen flex flex-col">{routesElement}</div>
-    </AuthProvider>
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000);
+  }, []);
+
+  return (
+    loading ? (
+      <div style={{
+        backgroundColor: 'white',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100vh'
+      }}>
+        <ClimbingBoxLoader
+          size={30}
+          color={'#000000'}
+          loading={loading}
+          className="loading-spinner"
+        />
+      </div>
+    ) : (
+      <AuthProvider>
+        <div className="w-full h-screen flex flex-col">{routesElement}</div>
+      </AuthProvider>
+    )
   );
+
 }
+
 
 export default App
 

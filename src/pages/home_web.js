@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import "../pages_css/home_web.css"; // Assuming you have CSS styles in App.css
 import Navbar from "../components/Navbar/Navbar";
 import CreatePost from '../components/new_post/new';
+import LineChartInsight from "../components/charts/LineChart";
 import axios from 'axios';
 
 
 import img1 from "../images/img-1.jpg";
 import img2 from "../images/img-2.jpg";
 import img3 from "../images/img-3.jpg";
-import chart from "../images/chart.png";
 
 function Home_web() {
     const [modalOpen, setModalOpen] = useState(false);
@@ -77,7 +77,7 @@ function Home_web() {
                 <div className="ticket-sale">
                     <h1>Ticket Sales</h1>
                     <div className="ticket-img">
-                        <img src={chart} alt="" />
+                        <LineChartInsight />
                     </div>
                 </div>
 

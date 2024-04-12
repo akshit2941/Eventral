@@ -1,0 +1,32 @@
+.Chart-Main {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    gap: 2vw;
+    padding-left: 0;
+    flex-wrap: wrap;
+  }
+  
+  .dataCard {
+    padding: 1em;
+  }
+  
+  .revenueCard {
+    width: 100%;
+    height: 100%;
+    height: 20rem;
+  }
+  
+  .customerCard {
+    width: 100%;
+    height: 20rem;
+  }
+  
+  .categoryCard {
+    width: 40%;
+    height: 20rem;
+  }

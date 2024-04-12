@@ -4,9 +4,8 @@ import { useState, useEffect } from 'react';
 import '../pages_css/dashboard.css';
 import axios from 'axios';
 
-import charts from "../images/charts.png";
-import charts_2 from "../images/chart_2.png";
-// import { data } from 'autoprefixer';
+import LineChartInsight from "../components/charts/LineChart";
+import BarChartInsight from '../components/charts/BarChart';
 
 
 
@@ -80,7 +79,7 @@ function DashboardPage() {
                         </>
                     )}
                     <div className="rev-img">
-                        <img src={charts} alt="Image 1" />
+                        <LineChartInsight />
                     </div>
 
                 </div>
@@ -127,7 +126,7 @@ function DashboardPage() {
                     </div>
 
                     <div className="stream-img">
-                        <img src={charts_2} alt="Image 2" />
+                        <BarChartInsight />
                     </div>
                 </div>
 
