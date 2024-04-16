@@ -6,33 +6,79 @@ import CreatePost from '../components/new_post/new';
 import LineChartInsight from "../components/charts/LineChart";
 import axios from 'axios';
 
+// import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
+import { getFirestore, collection, getDoc, doc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
-import img1 from "../images/img-1.jpg";
-import img2 from "../images/img-2.jpg";
-import img3 from "../images/img-3.jpg";
+
 
 function Home_web() {
     const [modalOpen, setModalOpen] = useState(false);
-
+    const [artistData, setArtistData] = useState([]);
+    // const [events, setEvents] = useState([]);
     const [stats, setStats] = useState(null);
+    const [userId, setUserId] = useState(null);
+
+    const db = getFirestore();
+    const auth = getAuth();
+    // const colRef = collection(db, 'artists');
+    const colRef = userId ? doc(collection(db, 'artists'), userId) : null;
+
+    // const eventsColRef = userId ? collection(db, 'artists', userId, 'events') : null;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/stats');
                 setStats(response.data);
-                console.log(response.data); // Print data in console
+                console.log(response.data);
             } catch (error) {
                 console.error('Error fetching stats:', error);
             }
         };
 
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            if (user) {
+                setUserId(user.uid);
+            } else {
+                setUserId(null);
+            }
+        });
+
+        getArtistData();
+        // getEventData();
         fetchData();
-    }, []);
+
+        return () => unsubscribe();
+
+    }, [userId]);
 
     useEffect(() => {
         document.title = "Eventral";
-    }, []);
+        console.log('Artist Data:', artistData);
+        // console.log('Events:', events);
+    }, [artistData]);
+
+    const getArtistData = async () => {
+        if (colRef) {
+            try {
+                const docSnapshot = await getDoc(colRef);
+                if (docSnapshot.exists()) {
+                    const data = { id: docSnapshot.id, ...docSnapshot.data() };
+                    // Retrieve the 'events' array from the document data
+                    const eventsArray = data.events || []; // Default to an empty array if 'events' is not present
+                    setArtistData(eventsArray);
+                } else {
+                    console.error('Document does not exist');
+                }
+            } catch (error) {
+                console.error('Error fetching artist data:', error);
+            }
+        } else {
+            console.error('User is not authenticated');
+        }
+    };
+
 
     return (
         <div className="div-body">
@@ -46,7 +92,7 @@ function Home_web() {
                     <div className="dash-left">
                         <button className="dash-btn openModalBtn" onClick={() => {
                             setModalOpen(true);
-                        }}>New</button>
+                        }}>New Post</button>
                         {modalOpen && <CreatePost setOpenModal={setModalOpen} />}
                     </div>
                 </div>
@@ -83,39 +129,23 @@ function Home_web() {
 
                 <div className="event-list">
                     <h1>Event Analytics</h1>
-                    <div className="event-list-parts">
-                        <div className="event-name">
-                            <div className="event-img">
-                                <img src={img1} alt="" />
-                            </div>
-                            <div className="event-details">
-                                <h3>Spring Music Festival</h3>
-                                <p>Feb 21 - Apr 21</p>
-                            </div>
-                            <p>$2.3M</p>
+                    
+                        <div className="event-list-parts">
+                            {artistData.map((event, index) => (
+                                <div className="event-name" key={index}>
+                                    <div className="event-img">
+                                        <img src={event.eventImageUrl} alt="" />
+                                    </div>
+                                    <div className="event-details">
+                                        <h3>{event.eventTitle}</h3>
+                                        <p>{event.eventDate}</p>
+                                        <p>{event.eventDescription}</p>
+                                    </div>
+                                    <p>${event.eventPrice}</p>
+                                </div>
+                            ))}
                         </div>
-                        <div className="event-name">
-                            <div className="event-img">
-                                <img src={img2} alt="" />
-                            </div>
-                            <div className="event-details">
-                                <h3>Summer Music Festival</h3>
-                                <p>Feb 21 - Apr 21</p>
-                            </div>
-                            <p>$2.3M</p>
-                        </div>
-                        <div className="event-name">
-                            <div className="event-img">
-                                <img src={img3} alt="" />
-                            </div>
-                            <div className="event-details">
-                                <h3>Fall Music Festival</h3>
-                                <p>Feb 21 - Apr 21</p>
-                            </div>
-                            <p>$2.3M</p>
-                        </div>
-
-                    </div>
+                    
                 </div>
 
                 <div>

@@ -40,7 +40,7 @@ function CalendarContent() {
       const docSnapshot = await getDoc(docRef);
       if (docSnapshot.exists()) {
         const existingScheduleData = docSnapshot.data().scheduleData || [];
-        existingScheduleData.push(ArtistData); // Use ArtistData instead of newScheduleItem
+        existingScheduleData.push(ArtistData);
         await updateDoc(docRef, { scheduleData: existingScheduleData });
       } else {
         console.error("Document does not exist");
@@ -50,9 +50,6 @@ function CalendarContent() {
     }
   };
   
-
-
-
   const handleButtonClick = () => {
     try {
       if (!selectedDate) {

@@ -11,7 +11,7 @@ import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
 function NewPost({ setOpenModal }) {
     const [eventTitle, setEventTitle] = useState('');
     const [eventDescription, setEventDescription] = useState('');
-    const [eventCategory, setEventCategory] = useState('');
+    const [eventPrice, seteventPrice] = useState('');
     const [eventDate, setEventDate] = useState('');
     const [mediaFile, setMediaFile] = useState(null);
     const [userId, setUserId] = useState(null);
@@ -57,7 +57,7 @@ function NewPost({ setOpenModal }) {
             const eventObj = {
                 eventTitle,
                 eventDescription,
-                eventCategory,
+                eventPrice,
                 eventDate,
                 eventImageUrl
 
@@ -132,20 +132,20 @@ function NewPost({ setOpenModal }) {
                             onChange={(e) => setEventDescription(e.target.value)}
                         />
 
-                        <h1 className="head-title head-margin">Event Category</h1>
+                        <h1 className="head-title head-margin">Ticket Price</h1>
                         <input
-                            type="text"
+                            type="number"
                             className="event-tile-input-area"
-                            placeholder="Add Event Category"
-                            value={eventCategory}
-                            onChange={(e) => setEventCategory(e.target.value)}
+                            placeholder="Enter Ticket Price"
+                            value={eventPrice}
+                            onChange={(e) => seteventPrice(e.target.value)}
                         />
 
                         <h1 className="head-title head-margin">Event Date</h1>
                         <input
-                            type="text"
+                            type="date"
                             className="event-tile-input-area"
-                            placeholder="Enter Tags...."
+                            placeholder="Enter Date"
                             value={eventDate}
                             onChange={(e) => setEventDate(e.target.value)}
                         />
