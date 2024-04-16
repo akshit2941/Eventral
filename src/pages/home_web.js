@@ -128,28 +128,31 @@ function Home_web() {
                 </div>
 
                 <div className="event-list">
-                    <h1>Event Analytics</h1>
-                    
+                    <h1 className="event-list-head">Your Event&apos;s</h1>
+                    <div className="event-flexbox">
                         <div className="event-list-parts">
-                            {artistData.map((event, index) => (
-                                <div className="event-name" key={index}>
-                                    <div className="event-img">
-                                        <img src={event.eventImageUrl} alt="" />
+                            {/* {artistData.map((event, index) => ( */}
+                            {artistData.slice(0, 4).map((event, index) => (
+                                <div className="data-class" key={index}>
+                                    <div className="data-img-main">
+                                        <img src={event.eventImageUrl} alt="displayImage" className="data-image" />
                                     </div>
-                                    <div className="event-details">
-                                        <h3>{event.eventTitle}</h3>
-                                        <p>{event.eventDate}</p>
-                                        <p>{event.eventDescription}</p>
+                                    <div className="data-display">
+                                        <h2 className="data-head">{event.eventDate}</h2>
+                                        <p className="data-para">{event.eventTitle}</p>
+                                        <p className="para-small">{event.eventDescription}</p>
+                                        <p className="para-small-bold">Rs.{event.eventPrice}</p>
                                     </div>
-                                    <p>${event.eventPrice}</p>
                                 </div>
                             ))}
                         </div>
-                    
+
+                    </div>
                 </div>
 
-                <div>
-                </div>
+            </div>
+
+            <div>
             </div>
         </div>
     );

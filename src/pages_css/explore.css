@@ -26,7 +26,8 @@ body {
 .body-main {
     padding-left: 350px;
     padding-right: 350px;
-    height: 150vh;
+    height: fit-content;
+    margin-bottom: 50px;
 }
 
 .explore {
@@ -42,4 +43,65 @@ body {
     font-weight: 900;
     font-size: 45px;
     color: black;
+}
+
+.post-section{
+    margin-top: 50px;
+    /* border: 2px solid #d4d4d4; */
+    border-radius: 23px;
+    /* padding: 15px; */
+}
+
+.data-class {
+    /* height: 410px; */
+    height: fit-content;
+    width: 250px;
+    border: 2px solid #d4d4d4;
+    border-radius: 33px;
+    padding: 10px;
+    width: calc(25% - 80px);
+    margin: 10px;
+    margin-top: 18px;
+}
+
+.data-img-main {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.data-image {
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 23px;
+}
+
+.data-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center
+}
+
+.data-head {
+    font-size: 22px;
+    padding: 8px;
+    padding-bottom: 1px;
+}
+
+.data-para {
+    font-size: 15px;
+    padding: 2px;
+}
+
+.para-small {
+    font-size: 14px;
+    padding: 3px;
+    text-align: center;
+}
+
+.para-small-bold {
+    font-weight: 500;
 }

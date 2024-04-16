@@ -179,47 +179,65 @@ body {
     padding: 40px;
 }
 
-.event-box-img {
-    width: 150px;
-    height: 80px;
-    border: 1px solid #000;
-    border: none;
-    border-radius: 10px;
+.event-list-head {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.event-flexbox{
+    margin-top: 25px;
+}
+
+.data-class {
+    /* height: 410px; */
+    height: fit-content;
+    width: 250px;
+    border: 2px solid #d4d4d4;
+    border-radius: 33px;
+    padding: 10px;
+    width: calc(25% - 50px);
+    margin: 10px;
+    margin-top: 18px;
+}
+
+.data-img-main {
+    width: 100%;
+    height: 300px;
     overflow: hidden;
 }
 
-.event-box-img img {
+.data-image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 23px;
 }
 
-.event-box-detail {
+.data-display {
     display: flex;
-    margin-bottom: 30px;
-
+    flex-direction: column;
+    align-items: center;
+    justify-content: center
 }
 
-.event-info {
-    margin-left: 20px;
+.data-head {
+    font-size: 22px;
+    padding: 8px;
+    padding-bottom: 1px;
 }
 
-.event-info h3 {
-    font-size: 21px;
-    padding: 6px;
-    color: #414141;
-    padding-left: 0;
+.data-para {
+    font-size: 15px;
+    padding: 2px;
 }
 
-.event-info p {
-    font-size: 18px;
-    color: #797777;
+.para-small {
+    font-size: 14px;
+    padding: 3px;
+    text-align: center;
 }
 
-.event-details h2{
-    font-family: Helvetica;
-    font-weight: 900;
-    font-size: 35px;
-    color: black;
-    margin-bottom: 30px;
+.para-small-bold {
+    font-weight: 500;
 }
