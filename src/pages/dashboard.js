@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import '../pages_css/dashboard.css';
 import axios from 'axios';
 
-import LineChartInsight from "../components/charts/LineChart";
+import LineChartInsight from "../components/charts/LineChartDash";
 import BarChartInsight from '../components/charts/BarChart';
 
 

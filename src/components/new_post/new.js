@@ -16,7 +16,11 @@ function NewPost({ setOpenModal }) {
     const [mediaFile, setMediaFile] = useState(null);
     const [userId, setUserId] = useState(null);
 
+    // const [DropCategory, setDropCategory] = useState('');
+
     const [loading, setLoading] = useState(false);
+
+    const postCategorySuggestions = ["comedy", "music", "speaker"];
 
 
     const db = getFirestore();
@@ -143,7 +147,13 @@ function NewPost({ setOpenModal }) {
                             placeholder="Add Post Category"
                             value={postCategory}
                             onChange={(e) => setpostCategory(e.target.value)}
+                            list="postCategorySuggestions"
                         />
+                        <datalist id="postCategorySuggestions">
+                            {postCategorySuggestions.map((suggestion, index) => (
+                                <option key={index} value={suggestion} />
+                            ))}
+                        </datalist>
 
                         <h1 className="head-title head-margin">Post tags</h1>
                         <input
@@ -175,7 +185,7 @@ function NewPost({ setOpenModal }) {
 
                         <div className="submit-container">
                             <div className="button-container">
-                                <button className="submit-btn publish" type="submit" onClick={saveDataToFirestore}>Publish Event</button>
+                                <button className="submit-btn publish" type="submit" onClick={saveDataToFirestore}>Publish Post</button>
                                 <button className="submit-btn draft" type='submit'>Upload Image</button>
                             </div>
                         </div>
