@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, sans-serif;
+    color: #333;
+}
+
+body {
+    height: max-content;
+
+}
+
+.header {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.body-main {
+    padding-left: 350px;
+    padding-right: 350px;
+    height: 150vh;
+}
+
+.explore {
+    position: relative;
+    padding: 50px;
+    padding-left: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.explore-head {
+    font-family: Helvetica;
+    font-weight: 900;
+    font-size: 45px;
+    color: black;
+}

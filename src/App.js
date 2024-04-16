@@ -5,6 +5,7 @@ import Event from './pages/event';
 import Dashboard from './pages/dashboard';
 import Home_web from './pages/home_web';
 import Insight from './pages/insight';
+import Explore from './pages/explore';
 
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
@@ -39,6 +40,10 @@ function App() {
     {
       path: '/dashboard',
       element: <Dashboard />,
+    },
+    {
+      path: '/explore',
+      element: <Explore />,
     },
     {
       path: '/home_web',

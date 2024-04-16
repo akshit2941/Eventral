@@ -17,13 +17,13 @@ body {
     left: 0;
     width: 100%;
     padding: 20px 100px;
-    /* background: black; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
 }
 
+/* 
 .logo {
     font-size: 32px;
     color: black;
@@ -90,18 +90,18 @@ body {
     cursor: pointer;
     border: none;
     background-color: #ffffff;
-}
+} */
 
 /* .user-btn:hover{
     /* background-color: #333; */
 /* }  */
 
-.user-pic {
+/* .user-pic {
     width: 42px;
     border-radius: 40%;
     cursor: pointer;
     margin-left: 50px;
-}
+} */
 
 .body-main {
     padding-left: 350px;
@@ -254,6 +254,6 @@ td {
 
 }
 
-.concerts{
+.concerts {
     padding-bottom: 150px;
 }
