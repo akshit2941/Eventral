@@ -5,6 +5,7 @@ import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
 
 
 function NewPost({ setOpenModal }) {
@@ -15,11 +16,20 @@ function NewPost({ setOpenModal }) {
     const [mediaFile, setMediaFile] = useState(null);
     const [userId, setUserId] = useState(null);
 
+    const [loading, setLoading] = useState(false);
+
+
     const db = getFirestore();
     const storage = getStorage();
     const auth = getAuth();
 
     useEffect(() => {
+
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000);
+
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
                 setUserId(user.uid);
@@ -39,13 +49,14 @@ function NewPost({ setOpenModal }) {
 
     const saveDataToFirestore = async () => {
         try {
+            setLoading(true);
             if (mediaFile == null) throw new Error("Please select an image");
 
             const imageRef = ref(storage, `images/${mediaFile.name}-${uuidv4()}`);
             const snapshot = await uploadBytes(imageRef, mediaFile);
             const postImageUrl = await getDownloadURL(snapshot.ref);
 
-            const eventObj = {
+            const postObj = {
                 postTitle,
                 postDescription,
                 postCategory,
@@ -55,23 +66,30 @@ function NewPost({ setOpenModal }) {
 
             const docRef = doc(db, "artists", userId);
             const docSnapshot = await getDoc(docRef);
-            let existingData = [];
+            let existingPostData = {};
 
             if (docSnapshot.exists()) {
-                const docData = docSnapshot.data();
-                existingData = docData.posts || [];
+                existingPostData = docSnapshot.data();
             }
 
+            // Merge existing posts with the new post
+            const updatedPosts = [...(existingPostData.posts || []), postObj];
+
             await setDoc(docRef, {
-                posts: [...existingData, eventObj] 
+                ...existingPostData, // Keep existing data
+                posts: updatedPosts // Update only the posts field
             });
+
             setOpenModal(false);
 
             console.log("Document written to Database");
         } catch (error) {
             console.error("Error saving data to Firestore:", error.message);
+        } finally {
+            setLoading(false);
         }
     };
+
 
 
     return (
@@ -80,7 +98,24 @@ function NewPost({ setOpenModal }) {
                 <div className="newPosttitleCloseBtn">
                     <button onClick={() => setOpenModal(false)}>X</button>
                 </div>
-                <div className="main-container">
+                {loading ? (
+                    <div style={{
+                        backgroundColor: 'white',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '100%',
+                        height: '100vh'
+                    }}>
+                        <ClimbingBoxLoader
+                            size={30}
+                            color={'#000000'}
+                            loading={loading}
+                            className="loading-spinner"
+                        />
+                    </div>
+                ) : null}
+                <div className="main-container" style={{ display: loading ? 'none' : 'block' }}>
                     <h1 className="head">Post Details</h1>
                     <div className="container-details">
                         <h1 className="head-title">Post Title</h1>

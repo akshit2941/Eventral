@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes
 import './event.css';
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
 
 
 function NewPost({ setOpenModal }) {
@@ -15,11 +16,18 @@ function NewPost({ setOpenModal }) {
     const [mediaFile, setMediaFile] = useState(null);
     const [userId, setUserId] = useState(null);
 
+    const [loading, setLoading] = useState(false);
+
     const db = getFirestore();
     const storage = getStorage();
     const auth = getAuth();
 
     useEffect(() => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000);
+
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
                 setUserId(user.uid);
@@ -39,28 +47,44 @@ function NewPost({ setOpenModal }) {
 
     const saveDataToFirestore = async () => {
         try {
+            setLoading(true);
             if (mediaFile == null) throw new Error("Please select an image");
-
-            console.log("User ID:", userId);
 
             const imageRef = ref(storage, `images/${mediaFile.name}-${uuidv4()}`);
             const snapshot = await uploadBytes(imageRef, mediaFile);
-            const EventimageUrl = await getDownloadURL(snapshot.ref);
+            const eventImageUrl = await getDownloadURL(snapshot.ref);
 
-            const docRef = doc(db, "artists", userId);
-
-            await setDoc(docRef, {
+            const eventObj = {
                 eventTitle,
                 eventDescription,
                 eventCategory,
                 eventDate,
-                EventimageUrl
-            }, { merge: true });
+                eventImageUrl
+
+            };
+
+            const docRef = doc(db, "artists", userId);
+            const docSnapshot = await getDoc(docRef);
+            let existingEventData = {};
+
+            if (docSnapshot.exists()) {
+                existingEventData = docSnapshot.data();
+            }
+
+            const updatedEvents = [...(existingEventData.posts || []), eventObj];
+
+            await setDoc(docRef, {
+                ...existingEventData, // Keep existing data
+                events: updatedEvents // Update only the posts field
+            });
+
+            setOpenModal(false);
 
             console.log("Document written to Database");
-            setOpenModal(false);
         } catch (error) {
             console.error("Error saving data to Firestore:", error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -70,7 +94,24 @@ function NewPost({ setOpenModal }) {
                 <div className="newEventtitleCloseBtn">
                     <button onClick={() => setOpenModal(false)}>X</button>
                 </div>
-                <div className="main-container">
+                {loading ? (
+                    <div style={{
+                        backgroundColor: 'white',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '100%',
+                        height: '100vh'
+                    }}>
+                        <ClimbingBoxLoader
+                            size={30}
+                            color={'#000000'}
+                            loading={loading}
+                            className="loading-spinner"
+                        />
+                    </div>
+                ) : null}
+                <div className="main-container" style={{ display: loading ? 'none' : 'block' }}>
                     <h1 className="head">Event Details</h1>
                     <div className="container-details">
                         <h1 className="head-title">Event Title</h1>
