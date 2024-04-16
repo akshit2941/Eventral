@@ -71,11 +71,11 @@ function NewPost({ setOpenModal }) {
                 existingEventData = docSnapshot.data();
             }
 
-            const updatedEvents = [...(existingEventData.posts || []), eventObj];
+            const updatedEvents = [...(existingEventData.events || []), eventObj];
 
             await setDoc(docRef, {
-                ...existingEventData, // Keep existing data
-                events: updatedEvents // Update only the posts field
+                ...existingEventData, 
+                events: updatedEvents
             });
 
             setOpenModal(false);

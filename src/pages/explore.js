@@ -6,7 +6,6 @@ import Calendar from '../components/utils/calendar.js'
 
 function Explore() {
 
-
     return (
         <div className="div-body">
             <header className="header">

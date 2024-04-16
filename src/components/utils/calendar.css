@@ -1,0 +1,10 @@
+.calendar-main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.schedule-button{
+    margin-top: 12px;
+    margin-left: 15px;
+}
