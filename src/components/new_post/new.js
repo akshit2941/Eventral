@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes
 import './new.css';
-import { getFirestore,doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
@@ -41,28 +41,38 @@ function NewPost({ setOpenModal }) {
         try {
             if (mediaFile == null) throw new Error("Please select an image");
 
-            console.log("User ID:", userId);
-
             const imageRef = ref(storage, `images/${mediaFile.name}-${uuidv4()}`);
             const snapshot = await uploadBytes(imageRef, mediaFile);
-            const PostimageUrl = await getDownloadURL(snapshot.ref);
+            const postImageUrl = await getDownloadURL(snapshot.ref);
 
-            const docRef = doc(db, "artists", userId);
-
-            await setDoc(docRef, {
+            const eventObj = {
                 postTitle,
                 postDescription,
                 postCategory,
                 postTags,
-                PostimageUrl
-            }, { merge: true });
+                postImageUrl
+            };
+
+            const docRef = doc(db, "artists", userId);
+            const docSnapshot = await getDoc(docRef);
+            let existingData = [];
+
+            if (docSnapshot.exists()) {
+                const docData = docSnapshot.data();
+                existingData = docData.posts || [];
+            }
+
+            await setDoc(docRef, {
+                posts: [...existingData, eventObj] 
+            });
+            setOpenModal(false);
 
             console.log("Document written to Database");
-            setOpenModal(false);
         } catch (error) {
             console.error("Error saving data to Firestore:", error.message);
         }
     };
+
 
     return (
         <div className="newPostmodalBackground">

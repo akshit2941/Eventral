@@ -25,7 +25,7 @@ export const doCreateUserWithEmailAndPassword = async (email, password, displayN
 
     return user;
   } catch (error) {
-    console.error("Error creating user:", error.message);
+    alert("Error creating user: " + error.message);
     throw error;
   }
 };
@@ -51,7 +51,7 @@ export const doSignInWithGoogle = async () => {
 
     return user;
   } catch (error) {
-    console.error("Error signing in with Google:", error.message);
+    alert("Error signing in with Google:" + error.message);
     throw error;
   }
 
@@ -65,6 +65,7 @@ export const doSignOut = () => {
     })
     .catch(error => {
       console.error('Error signing out:', error);
+      throw error;
     });
 };
 
@@ -82,27 +83,3 @@ export const doSendEmailVerification = () => {
   });
 };
 
-
-// // Function to get user avatar URL from Firestore
-// export const getUserAvatar = async () => {
-//   try {
-//     const userId = auth.currentUser.uid; // Get current user ID
-//     const userDoc = await firestore.collection('artists').doc(userId).get();
-
-//     if (userDoc.exists) {
-//       const userData = userDoc.data();
-//       if (userData.photoUrl) {
-//         return userData.photoUrl;
-//       } else {
-//         console.log("User document does not contain photoUrl field");
-//         return null;
-//       }
-//     } else {
-//       console.log("User document does not exist");
-//       return null;
-//     }
-//   } catch (error) {
-//     console.error("Error fetching user avatar:", error);
-//     return null;
-//   }
-// };
