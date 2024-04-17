@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar/Navbar";
 import CreatePost from '../components/new_post/new';
 import LineChartInsight from "../components/charts/LineChart";
 import axios from 'axios';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
 // import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { getFirestore, collection, getDoc, doc } from "firebase/firestore";
@@ -15,18 +16,18 @@ import { getAuth } from "firebase/auth";
 function Home_web() {
     const [modalOpen, setModalOpen] = useState(false);
     const [artistData, setArtistData] = useState([]);
-    // const [events, setEvents] = useState([]);
     const [stats, setStats] = useState(null);
     const [userId, setUserId] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const db = getFirestore();
     const auth = getAuth();
-    // const colRef = collection(db, 'artists');
     const colRef = userId ? doc(collection(db, 'artists'), userId) : null;
 
-    // const eventsColRef = userId ? collection(db, 'artists', userId, 'events') : null;
 
     useEffect(() => {
+        document.title = "Eventral";
+
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/stats');
@@ -46,18 +47,21 @@ function Home_web() {
         });
 
         getArtistData();
-        // getEventData();
         fetchData();
 
         return () => unsubscribe();
 
     }, [userId]);
 
+
     useEffect(() => {
-        document.title = "Eventral";
-        console.log('Artist Data:', artistData);
-        // console.log('Events:', events);
-    }, [artistData]);
+        setIsLoading(true);
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
 
     const getArtistData = async () => {
         if (colRef) {
@@ -128,26 +132,41 @@ function Home_web() {
                 </div>
 
                 <div className="event-list">
-                    <h1 className="event-list-head">Your Event&apos;s</h1>
-                    <div className="event-flexbox">
-                        <div className="event-list-parts">
-                            {/* {artistData.map((event, index) => ( */}
-                            {artistData.slice(0, 4).map((event, index) => (
-                                <div className="data-class" key={index}>
-                                    <div className="data-img-main">
-                                        <img src={event.eventImageUrl} alt="displayImage" className="data-image" />
-                                    </div>
-                                    <div className="data-display">
-                                        <h2 className="data-head">{event.eventDate}</h2>
-                                        <p className="data-para">{event.eventTitle}</p>
-                                        <p className="para-small">{event.eventDescription}</p>
-                                        <p className="para-small-bold">Rs.{event.eventPrice}</p>
-                                    </div>
-                                </div>
-                            ))}
+                    <h1 className="event-list-head">Your Events</h1>
+                    {isLoading ? (
+                        <div style={{
+                            backgroundColor: 'white',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: '100%',
+                        }}>
+                            <ScaleLoader
+                                size={30}
+                                color={'#000000'}
+                                loading={isLoading}
+                                className="loading-spinner"
+                            />
                         </div>
-
-                    </div>
+                    ) : (
+                        <div className="event-flexbox">
+                            <div className="event-list-parts">
+                                {artistData.slice(0, 4).map((event, index) => (
+                                    <div className="data-class" key={index}>
+                                        <div className="data-img-main">
+                                            <img src={event.eventImageUrl} alt="displayImage" className="data-image" />
+                                        </div>
+                                        <div className="data-display">
+                                            <h2 className="data-head">{event.eventDate}</h2>
+                                            <p className="data-para">{event.eventTitle}</p>
+                                            <p className="para-small">{event.eventDescription}</p>
+                                            <p className="para-small-bold">Rs.{event.eventPrice}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
             </div>

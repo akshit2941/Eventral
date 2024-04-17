@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar/Navbar';
 import { useEffect, useState } from 'react';
 import CreateEvent from '../components/newEvent/event';
 import '../pages_css/event.css';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
 import { getFirestore, collection, getDoc, doc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -12,6 +13,7 @@ function EventPage() {
     const [modalOpen, setModalOpen] = useState(false);
     const [artistData, setArtistData] = useState([]);
     const [userId, setUserId] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const db = getFirestore();
     const auth = getAuth();
@@ -19,6 +21,8 @@ function EventPage() {
     const colRef = userId ? doc(collection(db, 'artists'), userId) : null;
 
     useEffect(() => {
+        document.title = "Event";
+
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
                 setUserId(user.uid);
@@ -33,8 +37,13 @@ function EventPage() {
 
     }, [userId]);
 
+
     useEffect(() => {
-        document.title = "Event";
+        setIsLoading(true);
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
     }, []);
 
     const getArtistData = async () => {
@@ -102,28 +111,43 @@ function EventPage() {
                 </div>
 
                 <div className="event-details">
-                    {/* <h2>Past Events</h2> */}
-                    <h1 className="event-list-head">All Event&apos;s</h1>
-                    <div className="event-flexbox">
-                        <div className="event-list-parts">
-                            {artistData.map((event, index) => (
-                                <div className="data-class" key={index}>
-                                    <div className="data-img-main">
-                                        <img src={event.eventImageUrl} alt="displayImage" className="data-image" />
-                                    </div>
-                                    <div className="data-display">
-                                        <h2 className="data-head">{event.eventDate}</h2>
-                                        <p className="data-para">{event.eventTitle}</p>
-                                        <p className="para-small">{event.eventDescription}</p>
-                                        <p className="para-small-bold">Rs.{event.eventPrice}</p>
-                                    </div>
-                                </div>
-                            ))}
-
+                    <h1 className="event-list-head">All Events</h1>
+                    {isLoading ? (
+                        // Show loading screen while data is loading
+                        <div style={{
+                            backgroundColor: 'white',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: '100%',
+                        }}>
+                            <ScaleLoader
+                                size={30}
+                                color={'#000000'}
+                                loading={isLoading}
+                                className="loading-spinner"
+                            />
                         </div>
-
-                    </div>
-
+                    ) : (
+                        // Once loading is complete, display the event details
+                        <div className="event-flexbox">
+                            <div className="event-list-parts">
+                                {artistData.map((event, index) => (
+                                    <div className="data-class" key={index}>
+                                        <div className="data-img-main">
+                                            <img src={event.eventImageUrl} alt="displayImage" className="data-image" />
+                                        </div>
+                                        <div className="data-display">
+                                            <h2 className="data-head">{event.eventDate}</h2>
+                                            <p className="data-para">{event.eventTitle}</p>
+                                            <p className="para-small">{event.eventDescription}</p>
+                                            <p className="para-small-bold">Rs.{event.eventPrice}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
             </div>
