@@ -75,9 +75,22 @@ function Explore() {
                     <Calendar />
                 </div>
 
+                <div className="explore-artist">
+                    <h1 className="explore-artist-head">
+                        Other Artist On Board!
+                    </h1>
+                <div className="explore-list">
+                    <div className="explore-artist-profile">
+                        <p className="artist-profile-name">
+                            Diaz
+                        </p>
+                    </div>
+                </div>
+                
+                </div>
+
                 <div className="post-section">
                     {isLoading ? (
-                        // Show loading screen while data is loading
                         <div style={{
                             backgroundColor: 'white',
                             display: 'flex',

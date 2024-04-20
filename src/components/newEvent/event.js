@@ -11,7 +11,7 @@ import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
 function NewPost({ setOpenModal }) {
     const [eventTitle, setEventTitle] = useState('');
     const [eventDescription, setEventDescription] = useState('');
-    const [eventPrice, seteventPrice] = useState('');
+    const [eventPrice, setEventPrice] = useState(0);
     const [eventDate, setEventDate] = useState('');
     const [mediaFile, setMediaFile] = useState(null);
     const [userId, setUserId] = useState(null);
@@ -23,7 +23,7 @@ function NewPost({ setOpenModal }) {
     const auth = getAuth();
 
     useEffect(() => {
-        setLoading(true)
+        setLoading(true)    
         setTimeout(() => {
             setLoading(false)
         }, 1000);
@@ -54,10 +54,12 @@ function NewPost({ setOpenModal }) {
             const snapshot = await uploadBytes(imageRef, mediaFile);
             const eventImageUrl = await getDownloadURL(snapshot.ref);
 
+            const parsedEventPrice = parseInt(eventPrice);
+
             const eventObj = {
                 eventTitle,
                 eventDescription,
-                eventPrice,
+                eventPrice: parsedEventPrice,
                 eventDate,
                 eventImageUrl
 
@@ -138,7 +140,7 @@ function NewPost({ setOpenModal }) {
                             className="event-tile-input-area"
                             placeholder="Enter Ticket Price"
                             value={eventPrice}
-                            onChange={(e) => seteventPrice(e.target.value)}
+                            onChange={(e) => setEventPrice(parseInt(e.target.value))}
                         />
 
                         <h1 className="head-title head-margin">Event Date</h1>

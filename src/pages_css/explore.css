@@ -45,7 +45,7 @@ body {
     color: black;
 }
 
-.post-section{
+.post-section {
     margin-top: 50px;
     /* border: 2px solid #d4d4d4; */
     border-radius: 23px;
@@ -104,4 +104,24 @@ body {
 
 .para-small-bold {
     font-weight: 500;
+}
+
+.explore-artist-head {
+    font-family: Helvetica;
+    font-weight: 900;
+    font-size: 40px;
+    color: black;
+}
+
+.explore-artist-profile{
+    border: 2px solid #d4d4d4;
+    border-radius: 23px;
+    padding: 15px;
+    margin-top: 20px;
+}
+.artist-profile-name{
+    font-family: Helvetica;
+    font-weight: 500;
+    font-size: 20px;
+    color: black;
 }

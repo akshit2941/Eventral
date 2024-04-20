@@ -21,7 +21,7 @@ export const doCreateUserWithEmailAndPassword = async (email, password, displayN
       displayName: displayName,
       email: user.email,
       // Add any additional user data you want to store in Firestore
-    });
+    }, { merge: true }); // Merge option here
 
     return user;
   } catch (error) {
@@ -29,6 +29,7 @@ export const doCreateUserWithEmailAndPassword = async (email, password, displayN
     throw error;
   }
 };
+
 
 export const doSignInWithEmailAndPassword = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
@@ -47,7 +48,7 @@ export const doSignInWithGoogle = async () => {
       email: user.email,
       photoUrl: user.photoURL,
       // Add any additional user data you want to store in Firestore
-    });
+    }, { merge: true });
 
     return user;
   } catch (error) {
