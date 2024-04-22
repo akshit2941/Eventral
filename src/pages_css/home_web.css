@@ -201,3 +201,7 @@ body {
 .para-small-bold {
   font-weight: 500;
 }
+
+.reload-button{
+  color: #333;
+}

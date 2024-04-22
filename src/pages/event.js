@@ -38,6 +38,13 @@ function EventPage() {
     }, [userId]);
 
 
+    const reloadData = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000); // Simulating a reload delay of 1 second
+    };
+
     useEffect(() => {
         setIsLoading(true);
         const timer = setTimeout(() => {
@@ -113,7 +120,6 @@ function EventPage() {
                 <div className="event-details">
                     <h1 className="event-list-head">All Events</h1>
                     {isLoading ? (
-                        // Show loading screen while data is loading
                         <div style={{
                             backgroundColor: 'white',
                             display: 'flex',
@@ -129,7 +135,6 @@ function EventPage() {
                             />
                         </div>
                     ) : (
-                        // Once loading is complete, display the event details
                         <div className="event-flexbox">
                             <div className="event-list-parts">
                                 {artistData.map((event, index) => (
@@ -148,6 +153,9 @@ function EventPage() {
                             </div>
                         </div>
                     )}
+                    <button className="reload-button" onClick={reloadData}>
+                        <img src="https://icons8.com/icon/11675/refresh" alt="Reload" style={{ width: '30px', height: '30px' }} />
+                    </button>
                 </div>
 
             </div>

@@ -33,6 +33,13 @@ function Explore() {
 
     }, [userId]);
 
+    const reloadData = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000); // Simulating a reload delay of 1 second
+    };
+
     useEffect(() => {
         setIsLoading(true);
         const timer = setTimeout(() => {
@@ -127,6 +134,9 @@ function Explore() {
                             </div>
                         </div>
                     )}
+                    <button className="reload-button" onClick={reloadData}>
+                        <img src="https://img.icons8.com/icon/59872/refresh" alt="Reload" style={{ width: '30px', height: '30px' }} />
+                    </button>
                 </div>
 
             </div>

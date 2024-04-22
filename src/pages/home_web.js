@@ -54,6 +54,13 @@ function Home_web() {
     }, [userId]);
 
 
+    const reloadData = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000); // Simulating a reload delay of 1 second
+    };
+
     useEffect(() => {
         setIsLoading(true);
         const timer = setTimeout(() => {
@@ -167,6 +174,9 @@ function Home_web() {
                             </div>
                         </div>
                     )}
+                    <button className="reload-button" onClick={reloadData}>
+                        <img src="https://icons8.com/icon/11675/refresh" alt="Reload" style={{ width: '30px', height: '30px' }} />
+                    </button>
                 </div>
 
             </div>
