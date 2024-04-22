@@ -26,13 +26,24 @@ export const doCreateUserWithEmailAndPassword = async (email, password, displayN
     return user;
   } catch (error) {
     alert("Error creating user: " + error.message);
-    throw error;
+    window.location.reload();
+    return null;
   }
 };
 
 
-export const doSignInWithEmailAndPassword = (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password);
+export const doSignInWithEmailAndPassword = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
+  } catch (error) {
+    alert("Error signing in: " + error.message);
+    // Reload the page
+    window.location.reload();
+    // Alternatively, you can show an alert:
+    // alert("Error signing in: " + error.message);
+    return null;
+  }
 };
 
 export const doSignInWithGoogle = async () => {
@@ -53,7 +64,11 @@ export const doSignInWithGoogle = async () => {
     return user;
   } catch (error) {
     alert("Error signing in with Google:" + error.message);
-    throw error;
+    // Reload the page
+    window.location.reload();
+    // Alternatively, you can show an alert:
+    // alert("Error signing in with Google: " + error.message);
+    return null;
   }
 
   // add user to firestore
@@ -65,8 +80,8 @@ export const doSignOut = () => {
       window.location.href = '/'; // Redirect to home page after logout
     })
     .catch(error => {
-      console.error('Error signing out:', error);
-      throw error;
+      alert('Error signing out:', error);
+      return null;
     });
 };
 
