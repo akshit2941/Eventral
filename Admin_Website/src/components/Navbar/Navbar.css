@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, sans-serif;
+    color: #333;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+  body {
+    height: 100vh;
+  
+  }
+  
+  .header {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 100px;
+    /* background: black; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+  }
+  
+  .logo {
+    font-size: 32px;
+    color: black;
+    text-decoration: none;
+    font-weight: 700;
+  
+  }
+  
+  .navbar {
+    display: flex;
+  }
+  
+  .navbar a {
+    position: relative;
+    font-size: 18px;
+    color: black;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 40px;
+    margin-top: 8px;
+  }
+  
+  .navbar-elements {
+    position: relative;
+    font-size: 18px;
+    color: black;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 40px;
+    margin-top: 8px;
+  }
+  
+  .navbar a::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: black;
+    transition: .3s;
+  }
+  
+  .navbar a:hover::before {
+    width: 100%;
+  }
+  
+  .navbar-elements::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: black;
+    transition: .3s;
+  }
+  
+  .navbar-.navbar-elements::before {
+    width: 100%;
+  }
+  
+  .nav-btn {
+    margin: 0px 0px 0px 45px;
+  }
+  
+  .btn-new {
+    -webkit-border-radius: 12;
+    -moz-border-radius: 12;
+    border-radius: 12px;
+    font-family: Helvetica;
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    background: #1993F6;
+    padding: 10px 30px 10px 30px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .btn-new:hover {
+    text-decoration: none;
+    background-color: #d4d4d4;
+    color: #333;
+    transition: .3s;
+  }
+  
+  .user-btn {
+    cursor: pointer;
+    border: none;
+    background-color: #ffffff;
+  }
+  
+  
+  .user-pic {
+    width: 42px;
+    border-radius: 40%;
+    cursor: pointer;
+    margin-left: 50px;
+  }
+
+
+  .separator {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+  
+  

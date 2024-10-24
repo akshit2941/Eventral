@@ -154,7 +154,7 @@ function EventPage() {
                         </div>
                     )}
                     <button className="reload-button" onClick={reloadData}>
-                        <img src="https://icons8.com/icon/11675/refresh" alt="Reload" style={{ width: '30px', height: '30px' }} />
+                        <img src="https://img.icons8.com/material-rounded/24/000000/refresh--v1.png" alt="Reload" style={{ width: '30px', height: '30px' }} />
                     </button>
                 </div>
 
